@@ -6,6 +6,7 @@ import '../styles/Project.css';
 import '../styles/ProjectIntro.css';
 import '../styles/ConnectSection.css'
 import '../styles/Footer.css';
+import "../styles/Connect.css";
 
 export default function App({ Component, pageProps }) {
   return <Component {...pageProps} />;
