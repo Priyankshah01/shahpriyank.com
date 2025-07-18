@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 // import "../styles/Connect.css";
 
 function ConnectModal({ isOpen, onClose }) {
@@ -8,7 +9,7 @@ function ConnectModal({ isOpen, onClose }) {
     message: "",
   });
 
-  const [status, setStatus] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,10 +17,12 @@ function ConnectModal({ isOpen, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus("Sending...");
+    setIsSending(true);
+
+    const toastId = toast.loading("Sending...");
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/contact`, {
+      const res = await fetch("/api/Contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,17 +31,24 @@ function ConnectModal({ isOpen, onClose }) {
       });
 
       if (res.ok) {
-        setStatus("Message sent ✅");
+        toast.success("Message sent successfully ✅", { id: toastId });
         setFormData({ name: "", email: "", message: "" });
+
+        setTimeout(() => {
+          onClose(); // ⏱️ Smooth close after toast
+        }, 1500);
       } else {
         const data = await res.json();
-        setStatus(`Error: ${data.message || "Failed to send message."}`);
+        toast.error(data.message || "Something went wrong!", { id: toastId });
       }
     } catch (err) {
-      setStatus("Error: Could not send message.");
+      console.error("Email send error:", err);
+      toast.error("Failed to send message. Try again later.", { id: toastId });
+    } finally {
+      setIsSending(false);
     }
   };
-  
+
   if (!isOpen) return null;
 
   return (
@@ -74,10 +84,10 @@ function ConnectModal({ isOpen, onClose }) {
             onChange={handleChange}
             required
           />
-          <button type="submit">Send Message</button>
+          <button type="submit" disabled={isSending}>
+            {isSending ? "Sending..." : "Send Message"}
+          </button>
         </form>
-
-        {status && <p className="status-msg">{status}</p>}
       </div>
     </div>
   );

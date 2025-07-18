@@ -8,15 +8,26 @@ const Hero = () => {
         <div className="hero-left">
           <div className="symbol">🍁</div>
           <h1>
-            Toronto based digital designer and developer crafting, <br />
-            human-focused digital experiences for a range <br />
-            of forward–thinking brands.
+            I'm Priyank Shah, a Toronto-based UI/UX Developer, <br />
+            focused on building user-centered web apps using  <br />
+            Figma, React, and HTML/CSS.
           </h1>
-          <div>
-            <a href="/files/Priyank_Resume.pdf" download className="button-resume">
-              Download Resume
-            </a>
+          <div className="experience-showcase">
+            <div className="logo-carousel">
+              <img src="/logos/jvs_logo.jpeg" alt="Humber" />
+              <img src="/logos/codezeros_logo.jpeg" alt="Figma" />
+              <img src="/logos/webclues_infotech_logo.jpeg" alt="Capco" />
+              <img src="/logos/canstem_logo.svg" alt="Lululemon" />
+              <img src="/logos/humber_logo.webp" alt="Unity" />
+            </div>
+            <div className="experience-tagline">
+              <p>
+                4+ years designing in eCommerce<br />
+                Gaming, Finance, Telecom
+              </p>
+            </div>
           </div>
+
         </div>
 
         <div className="hero-right">
@@ -35,7 +46,7 @@ const Hero = () => {
         </div>
         <div>
           <p>Get in touch</p>
-          <p><strong>hello@priyankshah.design</strong></p>
+          <p><strong><a href="mailto:priyankshah0101@gmail.com">priyankshah0101@gmail.com</a></strong></p>
         </div>
       </div>
     </section>

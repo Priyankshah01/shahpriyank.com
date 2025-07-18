@@ -11,9 +11,9 @@ function About() {
         <div className="info-label">↳ Overview</div>
         <div className="info-text">
           <p>
-            Hi, I’m Priyank — a UX/UI Designer with a developer’s logic and a designer’s heart.
+            Hi, I’m Priyank — with a developer’s logic and a designer’s heart.
             I craft digital experiences that feel intuitive, look beautiful, and perform effortlessly.
-            My journey includes freelancing, co-op roles, and academic recognition in design.
+            My journey includes freelancing, co-op roles, and academic recognition in Design and Development.
           </p>
         </div>
       </div>
