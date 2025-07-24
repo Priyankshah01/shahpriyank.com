@@ -13,10 +13,11 @@ export default function GiftellePage() {
           heroImg="/images/Giftelle-ui1.jpg"
           outcomeTitle="Giftelle: Personalized Gifting. Simplified."
           outcomeSubtitle="An intuitive platform for discovering meaningful gifts without the stress."
-                    client={{
-            title: "HRXConnect",
-            image: "/images/Giftelle-ui2.jpg",
+          client={{
+            title: "Internal / Personal Project",
+            image: "/images/Basics-ui3.jpg",
           }}
+
           targetAudience="Busy individuals looking for curated and thoughtful gift options."
           problem="People often struggle to find unique, thoughtful gifts quickly due to time constraints and overwhelming choices."
           role="I led the full UX process—from research to UI design to visual branding and handoff."

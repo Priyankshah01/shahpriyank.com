@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
-import Link from "next/link";
-// import "../styles/Navbar.css";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -16,14 +14,14 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <a href="#hey">Priyank Shah</a>
+        <a href="#hey" onClick={closeMenu}>Priyank Shah</a>
       </div>
 
       <div className="navbar-right desktop-menu">
-        <a href="/">Home</a>
-        <a href="#work">Projects</a>
-        <a href="#story">About</a>
-        <a href="#chat">Contact</a>
+        <a href="/" onClick={closeMenu}>Home</a>
+        <a href="#work" onClick={closeMenu}>Projects</a>
+        <a href="#story" onClick={closeMenu}>About</a>
+        <a href="#chat" onClick={closeMenu}>Contact</a>
       </div>
 
       <div className="hamburger-icon" onClick={toggleMenu}>

@@ -132,6 +132,60 @@
   }
 }
 
+/* ===== BUTTONS ===== */
+.project-intro-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.project-button {
+  padding: 0.8rem 1.75rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid transparent;
+}
+
+.live-demo {
+  background-color: #111;
+  color: white;
+}
+
+.live-demo:hover {
+  background-color: #333;
+  transform: translateY(-1px);
+}
+
+.view-code {
+  background-color: white;
+  color: #111;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.view-code:hover {
+  background-color: #f8f8f8;
+  transform: translateY(-1px);
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive adjustments */
+@media (min-width: 600px) {
+  .project-intro-buttons {
+    gap: 1.5rem;
+  }
+  
+  .project-button {
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+  }
+}
+
 /* Tablets */
 @media (min-width: 600px) {
   .project-intro {

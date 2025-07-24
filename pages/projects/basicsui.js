@@ -13,10 +13,13 @@ export default function BasicsPage() {
           heroImg="/images/Basics-ui2.jpg"
           outcomeTitle="Basics UI."
           outcomeSubtitle="Minimal UI System for Rapid Prototyping"
-          client={{
-            title: "Internal / Personal Project",
-            image: "/images/Basics-ui3.jpg",
-          }}
+          client={[
+            {
+              title: "Internal / Personal Project",
+              image: "/images/Basics-ui3.jpg",
+            }
+          ]}
+
 
           targetAudience="Freelance designers, developers, and small teams building MVPs"
           problem="Most UI kits are bloated, opinionated, or hard to customize quickly for unique branding."

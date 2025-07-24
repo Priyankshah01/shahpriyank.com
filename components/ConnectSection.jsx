@@ -6,7 +6,7 @@ const ConnectSection = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <section className="get-started-section">
+    <section className="get-started-section" id="chat">
       <h2 className="get-started-title">Let’s Work Together</h2>
       <p className="get-started-subtext">
         Have a project in mind? Let's bring it to life.

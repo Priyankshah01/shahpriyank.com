@@ -4,7 +4,7 @@ import skills from "../data/skills";
 
 function About() {
   return (
-    <section className="info-section">
+    <section className="info-section" id="story">
       <h1 className="info-title">Info</h1>
 
       <div className="info-row">

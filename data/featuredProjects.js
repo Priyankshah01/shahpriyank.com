@@ -2,24 +2,31 @@ const featuredProjects = [
   {
     title: "Giftelle",
     slug: "giftelle",
-    image1: "Giftelle-ui1.jpg",
+    image1: "Giftelle-ui-cover.jpg",
     date: "2024-01-01",
     status: "Design",
   },
   {
     title: "Basics UI",
     slug: "basicsui",
-    image1: "Basics-ui1.jpg",
-    date: "2023-11-15",
+    image1: "Basics-ui-cover.jpg",
+    date: "2022-11-15",
     status: "UX/UI",
   },
-  // {
-  //   title: "School System",
-  //   slug: "schoolsystem",
-  //   image1: "School-ui1.jpg",
-  //   date: "2023-08-01",
-  //   status: "Product",
-  // }
+  {
+    title: "Lego Step Finder",
+    slug: "lego",
+    image1: "lego-step-finder-cover.jpg",
+    date: "2025-04-01",
+    status: "Useless Website",
+  },
+  {
+    title: "Portfolio Admin CMS",
+    slug: "portfolio-cms",
+    image1: "portfolio-cms-cover.jpg",
+    date: "2025-04-01",
+    status: "Admin CMS",
+  }
 ];
 
 export default featuredProjects;

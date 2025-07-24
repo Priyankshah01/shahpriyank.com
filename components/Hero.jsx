@@ -1,5 +1,7 @@
 import React from 'react';
-// import '../styles/Hero.css';
+import TiltedCard from './TiltedCard';
+
+
 
 const Hero = () => {
   return (
@@ -14,11 +16,21 @@ const Hero = () => {
           </h1>
           <div className="experience-showcase">
             <div className="logo-carousel">
-              <img src="/logos/jvs_logo.jpeg" alt="Humber" />
-              <img src="/logos/codezeros_logo.jpeg" alt="Figma" />
-              <img src="/logos/webclues_infotech_logo.jpeg" alt="Capco" />
-              <img src="/logos/canstem_logo.svg" alt="Lululemon" />
-              <img src="/logos/humber_logo.webp" alt="Unity" />
+              <div className="logo-tooltip" data-tooltip="JVS Technologies">
+                <img src="/logos/jvs_logo.jpg" alt="JVS" />
+              </div>
+              <div className="logo-tooltip" data-tooltip="Codezeros">
+                <img src="/logos/codezeros_logo.jpg" alt="Codezeros" />
+              </div>
+              <div className="logo-tooltip" data-tooltip="Webclues Infotech">
+                <img src="/logos/webclues_infotech_logo.jpg" alt="webclues" />
+              </div>
+              <div className="logo-tooltip" data-tooltip="Humber">
+                <img src="/logos/humber_logo.jpg" alt="humber" />
+              </div>
+              <div className="logo-tooltip" data-tooltip="Canstem">
+                <img src="/logos/canstem_logo.jpg" alt="canstem" />
+              </div>
             </div>
             <div className="experience-tagline">
               <p>
@@ -31,7 +43,20 @@ const Hero = () => {
         </div>
 
         <div className="hero-right">
-          <img src="/images/Me.jpg" alt="Professional" className="profile-img" />
+          <TiltedCard
+            imageSrc="/images/Me.jpg"
+            altText="Priyank Shah - UI/UX Developer"
+            captionText="Priyank Shah - UI/UX Developer"
+            containerHeight="300px"
+            containerWidth="300px"
+            imageHeight="300px"
+            imageWidth="300px"
+            rotateAmplitude={12}
+            scaleOnHover={1.2}
+            showMobileWarning={false}
+            showTooltip={true}
+            displayOverlayContent={true}
+          />
         </div>
       </div>
 

@@ -29,6 +29,7 @@ const ProjectShowcase = () => {
     <section
       className={`project-grid-section ${isVisible ? "animate" : ""}`}
       ref={sectionRef}
+      id="work"
     >
       <div className="project-title">
         <h2>Explore my mind</h2>

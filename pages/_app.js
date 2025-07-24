@@ -7,6 +7,7 @@ import '../styles/ProjectIntro.css';
 import '../styles/ConnectSection.css'
 import '../styles/Footer.css';
 import "../styles/Connect.css";
+import "../styles/TiltedCard.css";
 import { Toaster } from 'react-hot-toast';
 
 

@@ -91,6 +91,7 @@
   transition: transform 0.3s ease;
   object-fit: cover;
   height: 60vh;
+  max-height: 60vh;
 }
 
 .project-card:hover .project-image {
