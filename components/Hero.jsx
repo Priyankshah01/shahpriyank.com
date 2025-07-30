@@ -34,8 +34,8 @@ const Hero = () => {
             </div>
             <div className="experience-tagline">
               <p>
-                4+ years designing in eCommerce<br />
-                Gaming, Finance, Telecom
+                4+ years in eCommerce · Gaming ·<br /> Finance · Telecom
+
               </p>
             </div>
           </div>
@@ -79,3 +79,4 @@ const Hero = () => {
 };
 
 export default Hero;
+

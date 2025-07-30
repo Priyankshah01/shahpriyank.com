@@ -31,6 +31,7 @@ const ProjectShowcase = () => {
       ref={sectionRef}
       id="work"
     >
+
       <div className="project-title">
         <h2>Explore my mind</h2>
       </div>

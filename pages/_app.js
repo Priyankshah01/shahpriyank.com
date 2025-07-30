@@ -9,11 +9,20 @@ import '../styles/Footer.css';
 import "../styles/Connect.css";
 import "../styles/TiltedCard.css";
 import { Toaster } from 'react-hot-toast';
+import "../styles/DarkVeil.css";
+import "../styles/ProfileCard.css";
+import Head from 'next/head';
+
+
 
 
 export default function App({ Component, pageProps }) {
- return (
+  return (
     <>
+      <Head>
+        <title> Priyank Shah | Designer | Developer</title>
+        <link rel="icon" href="../images/Me.jpg" />
+      </Head>
       <Toaster position="top-center" reverseOrder={false} />
       <Component {...pageProps} />
     </>
