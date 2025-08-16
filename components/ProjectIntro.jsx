@@ -5,25 +5,32 @@ const ProjectIntro = ({
   outcomeTitle,
   outcomeSubtitle,
   services,
-    date,
+  date,
   agency,
   client,
   targetAudience,
   problem,
   role,
-  goals,
-  techStack,
-  accessibility,
-  processSteps,
-  finalImages,
-  takeaways,
+  goals = null,
+  techStack = null,
+
+  // ✅ safe defaults
+  accessibility = [],
+  processSteps = [],
+  finalImages = [],
+  takeaways = [],
+
   liveDemoUrl,
-  viewCodeUrl,  
+  viewCodeUrl,
 }) => {
+  const hasAccessibility = Array.isArray(accessibility) && accessibility.length > 0;
+  const hasProcess = Array.isArray(processSteps) && processSteps.length > 0;
+  const hasFinalImages = Array.isArray(finalImages) && finalImages.length > 0;
+  const hasTakeaways = Array.isArray(takeaways) && takeaways.length > 0;
+
   return (
     <div className="project-intro space-y-16">
-
-          {/* Project Title & Subtitle */}
+      {/* Project Title & Subtitle */}
       <div className="space-y-2">
         <h1 className="text-4xl font-bold text-gray-900">{outcomeTitle}</h1>
         <h2 className="text-xl text-gray-600">{outcomeSubtitle}</h2>
@@ -35,8 +42,6 @@ const ProjectIntro = ({
           <img src={heroImg} alt="Hero" className="w-full object-cover" />
         </div>
       )}
-
-
 
       {/* Meta Details */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -71,8 +76,6 @@ const ProjectIntro = ({
         </div>
       </div>
 
-      
-
       {/* Client Info */}
       {client?.title && (
         <div>
@@ -88,17 +91,16 @@ const ProjectIntro = ({
         </div>
       )}
 
-            <hr className="project-divider" />
-
+      <hr className="project-divider" />
 
       {/* GOALS */}
       {goals && (
         <div className="mb-12 max-w-6xl">
           <h3 className="text-xl font-semibold mb-4">Clear Project Goals</h3>
           <ul className="list-disc list-inside text-gray-700 space-y-2">
-            <li><strong>Business:</strong> {goals.business}</li>
-            <li><strong>Design:</strong> {goals.design}</li>
-            <li><strong>Technical:</strong> {goals.tech}</li>
+            {goals.business && <li><strong>Business:</strong> {goals.business}</li>}
+            {goals.design && <li><strong>Design:</strong> {goals.design}</li>}
+            {goals.tech && <li><strong>Technical:</strong> {goals.tech}</li>}
           </ul>
         </div>
       )}
@@ -112,7 +114,7 @@ const ProjectIntro = ({
       )}
 
       {/* ACCESSIBILITY */}
-      {accessibility.length > 0 &&  (
+      {hasAccessibility && (
         <div className="mb-12 max-w-6xl">
           <h3 className="text-xl font-semibold mb-4">Accessibility Considerations</h3>
           <ul className="list-disc pl-6 mt-2 text-gray-700 space-y-1">
@@ -125,7 +127,7 @@ const ProjectIntro = ({
       <hr className="project-divider" />
 
       {/* Process Steps */}
-      {processSteps.length > 0 && (
+      {hasProcess && (
         <div className="space-y-6">
           <h3 className="text-lg font-semibold">Design & Development Process</h3>
           {processSteps.map((step, index) => (
@@ -148,7 +150,7 @@ const ProjectIntro = ({
       <hr className="project-divider" />
 
       {/* Final Results */}
-      {finalImages.length > 0 && (
+      {hasFinalImages && (
         <div>
           <h3 className="text-lg font-semibold mb-4">Final Results</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -165,7 +167,7 @@ const ProjectIntro = ({
       )}
 
       {/* Key Takeaways */}
-      {takeaways.length > 0 && (
+      {hasTakeaways && (
         <div>
           <h3 className="text-lg font-semibold">Key Takeaways</h3>
           <ul className="list-disc pl-6 mt-2 text-gray-700 space-y-1">

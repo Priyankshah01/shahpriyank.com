@@ -55,7 +55,7 @@ export default function BasicsPage() {
           finalImages={[
             "/images/Basics-ui5.jpg",
             "/images/Basics-ui4.jpg",
-            "/images/Basics-ui1.jpg",
+            "/images/Basics-ui1.jpg"  ,
           ]}
 
           takeaways={[
