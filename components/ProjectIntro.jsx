@@ -4,130 +4,204 @@ const ProjectIntro = ({
   heroImg,
   outcomeTitle,
   outcomeSubtitle,
-  client = [],
+  services,
+    date,
+  agency,
+  client,
   targetAudience,
   problem,
   role,
-  processSteps = [],
-  finalImages = [],
-  takeaways = [],
-    liveDemoUrl,
-  viewCodeUrl
+  goals,
+  techStack,
+  accessibility,
+  processSteps,
+  finalImages,
+  takeaways,
+  liveDemoUrl,
+  viewCodeUrl,  
 }) => {
   return (
+    <div className="project-intro space-y-16">
 
-    <div className="project-intro">
+          {/* Project Title & Subtitle */}
+      <div className="space-y-2">
+        <h1 className="text-4xl font-bold text-gray-900">{outcomeTitle}</h1>
+        <h2 className="text-xl text-gray-600">{outcomeSubtitle}</h2>
+      </div>
 
-      <h1 className="project-intro-title">{outcomeTitle}</h1>
-      <h2 className="project-intro-subtitle">{outcomeSubtitle}</h2>
-      {/* HERO SECTION */}
+      {/* Hero Section */}
       {heroImg && (
-        <img
-          src={heroImg}
-          alt="Hero"
-          className="project-img"
-        />
+        <div className="w-full overflow-hidden rounded-2xl shadow-md">
+          <img src={heroImg} alt="Hero" className="w-full object-cover" />
+        </div>
       )}
 
 
 
-      {/* PROBLEM SETUP */}
-      {/* <img src="/images/giftelle-ui.jpg" alt="Client" className="project-img" /> */}
+      {/* Meta Details */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div>
+          <p className="text-sm text-gray-400">Services</p>
+          <p className="text-base text-gray-800">{services}</p>
+        </div>
+        <div>
+          <p className="text-sm text-gray-400">Date</p>
+          <p className="text-base text-gray-800">{date}</p>
+        </div>
+        <div>
+          <p className="text-sm text-gray-400">Agency</p>
+          <p className="text-base text-gray-800">{agency}</p>
+        </div>
+      </div>
+      <hr className="project-divider" />
 
-      < div className="project-intro-section" >
-        <div className="project-intro-label">↳ Target Audience</div>
-        <div className="project-intro-text">{targetAudience}</div>
-      </div >
-      {/* <img src="/images/audience.jpg" alt="Audience" className="project-img" /> */}
+      {/* Problem & Role */}
+      <div className="space-y-8">
+        <div>
+          <h3 className="text-lg font-semibold">Target Audience</h3>
+          <p className="text-gray-700 mt-2">{targetAudience}</p>
+        </div>
+        <div>
+          <h3 className="text-lg font-semibold">The Problem</h3>
+          <p className="text-gray-700 mt-2">{problem}</p>
+        </div>
+        <div>
+          <h3 className="text-lg font-semibold">My Role</h3>
+          <p className="text-gray-700 mt-2">{role}</p>
+        </div>
+      </div>
 
-      < div className="project-intro-section" >
-        <div className="project-intro-label">↳ Problem</div>
-        <div className="project-intro-text">{problem}</div>
-      </div >
-      {/* <img src="/images/problem.jpg" alt="Problem" className="project-img" /> */}
+      
 
-      < div className="project-intro-section" >
-        <div className="project-intro-label">↳ My Role</div>
-        <div className="project-intro-text">{role}</div>
-      </div >
-      {/* <img src="/images/Giftelle-ui3.jpg" alt="My Role" className="project-img" /> */}
+      {/* Client Info */}
+      {client?.title && (
+        <div>
+          <h3 className="text-lg font-semibold">Client</h3>
+          <p className="text-gray-700 mt-2">{client.title}</p>
+          {client.image && (
+            <img
+              src={client.image}
+              alt={client.title}
+              className="mt-4 rounded-xl shadow"
+            />
+          )}
+        </div>
+      )}
 
-      {client && (
-        <div className="project-intro-section">
-          <div className="project-intro-label">↳ Who is the client?</div>
-          <div className="project-intro-text">
-            <p>{client?.title}</p>
-            {client?.image && (
-              <img src={client.image} alt={client.title} className="project-img" />
-            )}
+            <hr className="project-divider" />
+
+
+      {/* GOALS */}
+      {goals && (
+        <div className="mb-12 max-w-6xl">
+          <h3 className="text-xl font-semibold mb-4">Clear Project Goals</h3>
+          <ul className="list-disc list-inside text-gray-700 space-y-2">
+            <li><strong>Business:</strong> {goals.business}</li>
+            <li><strong>Design:</strong> {goals.design}</li>
+            <li><strong>Technical:</strong> {goals.tech}</li>
+          </ul>
+        </div>
+      )}
+
+      {/* TECH STACK */}
+      {techStack && (
+        <div className="mb-12 max-w-6xl">
+          <h3 className="text-xl font-semibold mb-4">Tech Stack</h3>
+          <p>{techStack}</p>
+        </div>
+      )}
+
+      {/* ACCESSIBILITY */}
+      {accessibility.length > 0 &&  (
+        <div className="mb-12 max-w-6xl">
+          <h3 className="text-xl font-semibold mb-4">Accessibility Considerations</h3>
+          <ul className="list-disc pl-6 mt-2 text-gray-700 space-y-1">
+            {accessibility.map((point, index) => (
+              <li key={index}>{point}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <hr className="project-divider" />
+
+      {/* Process Steps */}
+      {processSteps.length > 0 && (
+        <div className="space-y-6">
+          <h3 className="text-lg font-semibold">Design & Development Process</h3>
+          {processSteps.map((step, index) => (
+            <div key={index} className="border-l-4 border-gray-300 pl-4">
+              <h4 className="font-medium text-gray-900">
+                Step {index + 1}: {step.title}
+              </h4>
+              <p className="text-gray-700 mt-1">{step.description}</p>
+              {step.image && (
+                <img
+                  src={step.image}
+                  alt={step.title}
+                  className="mt-4 rounded-xl shadow"
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      <hr className="project-divider" />
+
+      {/* Final Results */}
+      {finalImages.length > 0 && (
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Final Results</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {finalImages.map((img, index) => (
+              <img
+                key={index}
+                src={img}
+                alt={`Final Image ${index + 1}`}
+                className="rounded-xl shadow"
+              />
+            ))}
           </div>
         </div>
       )}
 
-      {/* DESIGN PROCESS */}
-      {
-        processSteps.map((step, index) => (
-          <div key={index}>
-            {/* <hr className="project-divider" /> */}
-            <div className="project-intro-section">
-              <div className="project-intro-label">{`↳ Step ${index + 1}: ${step.title}`}</div>
-              <div className="project-intro-text">{step.description}</div>
-              {/* <div className="project-img">{step.image}</div> */}
-            </div>
-          </div>
-        ))
-      }
+      {/* Key Takeaways */}
+      {takeaways.length > 0 && (
+        <div>
+          <h3 className="text-lg font-semibold">Key Takeaways</h3>
+          <ul className="list-disc pl-6 mt-2 text-gray-700 space-y-1">
+            {takeaways.map((point, index) => (
+              <li key={index}>{point}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
-      {/* FINAL RESULTS */}
-      {
-        finalImages.length > 0 && (
-          <>
-            <hr className="project-divider" />
-            <div className="project-intro-section">
-              <div className="project-intro-label">↳ Final Results</div>
-              <div className="project-intro-images">
-                {finalImages.map((img, index) => (
-                  <img key={index} src={img} alt={`Final ${index + 1}`} />
-                ))}
-              </div>
-            </div>
-          </>
-        )
-      }
-
-      {/* TAKEAWAYS */}
-      {
-        takeaways.length > 0 && (
-          <>
-            <hr className="project-divider" />
-            <div className="project-intro-section">
-              <div className="project-intro-label">↳ My 3 Main Takeaways</div>
-              <div className="project-intro-text">
-                <ul>
-                  {takeaways.map((point, index) => (
-                    <li key={index}>#{index + 1} — {point}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </>
-        )
-      }
-
-            {/* BUTTONS SECTION */}
-      <div className="project-intro-buttons">
-        {liveDemoUrl && (
-          <a href={liveDemoUrl} target="_blank" rel="noopener noreferrer" className="project-button live-demo">
-            Live Demo
-          </a>
-        )}
-        {viewCodeUrl && (
-          <a href={viewCodeUrl} target="_blank" rel="noopener noreferrer" className="project-button view-code">
-            View Code
-          </a>
-        )}
-      </div>
-    </div >
+      {/* Buttons */}
+      {(liveDemoUrl || viewCodeUrl) && (
+        <div className="flex flex-wrap gap-4 mt-6">
+          {liveDemoUrl && (
+            <a
+              href={liveDemoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2 bg-black text-white rounded-xl hover:bg-gray-800"
+            >
+              Live Demo
+            </a>
+          )}
+          {viewCodeUrl && (
+            <a
+              href={viewCodeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2 border border-black rounded-xl hover:bg-gray-100"
+            >
+              View Code
+            </a>
+          )}
+        </div>
+      )}
+    </div>
   );
 };
 
