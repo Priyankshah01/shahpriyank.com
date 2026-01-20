@@ -1,77 +1,84 @@
-import React from "react";
-// import "../styles/About.css";
+import Image from "next/image";
 import skills from "../data/skills";
+// import styles from "../styles/About.module.css";
 
-function About() {
+export default function About() {
   return (
-    <section className="info-section" id="story">
-      <h1 className="info-title">Info</h1>
-
-      <div className="info-row">
-        <div className="info-label">↳ Overview</div>
-        <div className="info-text">
-          <p>
-            Hi, I’m Priyank — with a developer’s logic and a designer’s heart.
-            I craft digital experiences that feel intuitive, look beautiful, and perform effortlessly.
-            My journey includes freelancing, co-op roles, and academic recognition in Design and Development.
-          </p>
-        </div>
+    <section className={styles.wrapper} id="about">
+      {/* LEFT IMAGE */}
+      <div className={styles.left}>
+        <Image
+          src="/priyank.jpg"
+          alt="Priyank portrait"
+          fill
+          priority
+          className={styles.image}
+        />
       </div>
 
-      <div className="info-row">
-        <div className="info-label">↳ Services</div>
-        <div className="info-services">
-          <ul>
-            <li>UX/UI Design</li>
-            <li>Product Design</li>
-            <li>Responsive Web Design</li>
-          </ul>
-          <ul>
-            <li>Frontend Development</li>
-            <li>Design Systems</li>
-            <li>Brand Identity</li>
-          </ul>
-        </div>
-      </div>
+      {/* RIGHT CONTENT */}
+      <div className={styles.right}>
+        <span className={styles.label}>[ABOUT]</span>
 
-      <div className="info-row">
-        <div className="info-label">↳ Experience</div>
-        <div className="info-text info-services">
-          <ul>
-            <strong>HRX Connect</strong>
-            <li>
-              At HRX Connect, a talent intelligence company, I led the redesign of internal dashboards and marketing pages to support the product and growth teams.
-            </li>
-          </ul>
-          <ul>
-            <strong>CanSTEM</strong>
-            <li>
-              At Canstem, an immigration and educational consultancy, I revamped their entire website and student portal interface.
-            </li>
-          </ul>
-          <ul>
-            <strong>Webclues Infothech LLP.</strong>
-            <li>
-              As a design intern at WebClues, I supported mobile and web-based client projects with the senior design team.
-            </li>
-          </ul>
-        </div>
-      </div>
+        {/* BIG HEADLINE */}
+        <h1 className={styles.title}>
+          Hi, I’m Priyank — with a developer’s logic and a designer’s heart.
+          I craft digital experiences that feel intuitive, look beautiful,
+          and perform effortlessly.
+        </h1>
 
-      <div className="info-row">
-        <div className="info-label">↳ Skills</div>
-        <div className="info-text info-services">
-          <section id="skills" className="section skills">
-            <div className="skill-cloud">
+        {/* TWO-COLUMN INFO (matches image) */}
+        <div className={styles.columns}>
+          {/* LEFT COLUMN */}
+          <div>
+            <h3 className={styles.columnTitle}>MY LIFE</h3>
+            <p>
+              My journey includes freelancing, co-op roles, and academic
+              recognition in Design and Development. I enjoy solving complex
+              problems through thoughtful interfaces and clean systems.
+            </p>
+
+            <div className={styles.skillCloud}>
               {skills.map((skill, index) => (
-                <span className="skill-tag" key={index}>{skill}</span>
+                <span key={index} className={styles.skill}>
+                  {skill}
+                </span>
               ))}
             </div>
-          </section>
+          </div>
+
+          {/* RIGHT COLUMN */}
+          <div>
+            <h3 className={styles.columnTitle}>BUSINESS</h3>
+            <p>
+              I’ve worked with startups and organizations like HRX Connect,
+              CanSTEM, and WebClues Infotech — redesigning dashboards,
+              marketing websites, and digital products that support growth
+              and usability.
+            </p>
+
+            <ul className={styles.experience}>
+              <li><strong>HRX Connect</strong> — Internal dashboards & marketing</li>
+              <li><strong>CanSTEM</strong> — Website & student portal redesign</li>
+              <li><strong>WebClues</strong> — Client web & mobile products</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* FOOTER (matches image placement) */}
+        <div className={styles.footer}>
+          <div className={styles.socials}>
+            <span>IG</span>
+            <span>TT</span>
+            <span>IN</span>
+            <span>X</span>
+          </div>
+
+          <button className={styles.cta} disabled>
+            Unavailable →
+          </button>
         </div>
       </div>
     </section>
   );
 }
-
-export default About;
