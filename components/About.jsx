@@ -8,7 +8,7 @@ export default function About() {
       {/* LEFT IMAGE */}
       <div className={styles.left}>
         <Image
-          src="/priyank.jpg"
+          src="/Me.jpg"
           alt="Priyank portrait"
           fill
           priority
