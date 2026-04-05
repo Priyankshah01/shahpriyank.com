@@ -1,4 +1,56 @@
-import React from "react";
+import React, { useMemo } from "react";
+import { motion } from "motion/react";
+
+const fadeUp = {
+  initial: { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+};
+
+const SectionKicker = ({ children }) => (
+  <p className="text-[11px] uppercase tracking-[0.24em] text-white/35 md:text-xs">
+    {children}
+  </p>
+);
+
+const SectionTitle = ({ children, className = "" }) => (
+  <h2
+    className={`text-2xl font-semibold leading-tight tracking-tight text-white md:text-4xl ${className}`}
+  >
+    {children}
+  </h2>
+);
+
+const BodyText = ({ children, className = "" }) => (
+  <p className={`text-sm leading-relaxed text-white/70 md:text-base ${className}`}>
+    {children}
+  </p>
+);
+
+const MetaCard = ({ label, value }) => {
+  if (!value) return null;
+  const content = Array.isArray(value) ? value.join(" · ") : value;
+
+  return (
+    <motion.div
+      {...fadeUp}
+      whileHover={{ y: -4 }}
+      className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5"
+    >
+      <p className="text-[11px] uppercase tracking-[0.2em] text-white/35">{label}</p>
+      <p className="mt-3 text-sm font-medium leading-relaxed text-white/90 md:text-base">
+        {content}
+      </p>
+    </motion.div>
+  );
+};
+
+const Pill = ({ children }) => (
+  <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-white/75">
+    {children}
+  </span>
+);
 
 const ProjectIntro = ({
   heroImg,
@@ -13,13 +65,11 @@ const ProjectIntro = ({
   role,
   goals = null,
   techStack = null,
-
-  // ✅ safe defaults
   accessibility = [],
   processSteps = [],
   finalImages = [],
+  impact = [],
   takeaways = [],
-
   liveDemoUrl,
   viewCodeUrl,
 }) => {
@@ -27,183 +77,454 @@ const ProjectIntro = ({
   const hasProcess = Array.isArray(processSteps) && processSteps.length > 0;
   const hasFinalImages = Array.isArray(finalImages) && finalImages.length > 0;
   const hasTakeaways = Array.isArray(takeaways) && takeaways.length > 0;
+  const hasImpact = Array.isArray(impact) && impact.length > 0;
+
+  const sections = useMemo(() => {
+    const base = [
+      { id: "overview", label: "Overview" },
+      { id: "challenge", label: "Challenge" },
+    ];
+    if (goals) base.push({ id: "goals", label: "Goals" });
+    if (hasProcess) base.push({ id: "process", label: "Process" });
+    if (hasFinalImages) base.push({ id: "outcome", label: "Outcome" });
+    if (hasTakeaways) base.push({ id: "reflection", label: "Reflection" });
+    return base;
+  }, [goals, hasProcess, hasFinalImages, hasTakeaways]);
 
   return (
-    <div className="project-intro space-y-16">
-      {/* Project Title & Subtitle */}
-      <div className="space-y-2">
-        <h1 className="text-4xl font-bold text-gray-900">{outcomeTitle}</h1>
-        <h2 className="text-xl text-gray-600">{outcomeSubtitle}</h2>
+    <section className="relative overflow-hidden bg-black text-white">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-[12%] top-32 h-72 w-72 rounded-full bg-white/[0.05] blur-[140px]" />
+        <div className="absolute bottom-10 right-[12%] h-80 w-80 rounded-full bg-white/[0.04] blur-[160px]" />
       </div>
 
-      {/* Hero Section */}
-      {heroImg && (
-        <div className="w-full overflow-hidden rounded-2xl shadow-md">
-          <img src={heroImg} alt="Hero" className="w-full object-cover" />
-        </div>
-      )}
+      <div className="relative mx-auto max-w-[1600px] px-6 pb-24 pt-28 md:px-8 md:pb-32 md:pt-36">
+        <div className="mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-5xl"
+          >
+            <SectionKicker>Case Study</SectionKicker>
 
-      {/* Meta Details */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div>
-          <p className="text-sm text-gray-400">Services</p>
-          <p className="text-base text-gray-800">{services}</p>
-        </div>
-        <div>
-          <p className="text-sm text-gray-400">Date</p>
-          <p className="text-base text-gray-800">{date}</p>
-        </div>
-        <div>
-          <p className="text-sm text-gray-400">Agency</p>
-          <p className="text-base text-gray-800">{agency}</p>
-        </div>
-      </div>
-      <hr className="project-divider" />
+            <h1 className="mt-4 text-4xl font-semibold leading-[0.95] tracking-tight text-white md:text-6xl xl:text-[5.5rem]">
+              {outcomeTitle}
+            </h1>
 
-      {/* Problem & Role */}
-      <div className="space-y-8">
-        <div>
-          <h3 className="text-lg font-semibold">Target Audience</h3>
-          <p className="text-gray-700 mt-2">{targetAudience}</p>
-        </div>
-        <div>
-          <h3 className="text-lg font-semibold">The Problem</h3>
-          <p className="text-gray-700 mt-2">{problem}</p>
-        </div>
-        <div>
-          <h3 className="text-lg font-semibold">My Role</h3>
-          <p className="text-gray-700 mt-2">{role}</p>
-        </div>
-      </div>
+            {outcomeSubtitle && (
+              <p className="mt-6 max-w-3xl text-base leading-relaxed text-white/65 md:text-xl">
+                {outcomeSubtitle}
+              </p>
+            )}
+          </motion.div>
 
-      {/* Client Info */}
-      {client?.title && (
-        <div>
-          <h3 className="text-lg font-semibold">Client</h3>
-          <p className="text-gray-700 mt-2">{client.title}</p>
-          {client.image && (
-            <img
-              src={client.image}
-              alt={client.title}
-              className="mt-4 rounded-xl shadow"
-            />
-          )}
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.7,
+              delay: 0.15,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mt-10 flex flex-wrap gap-3"
+          >
+            {services &&
+              String(services)
+                .split("·")
+                .map((item) => item.trim())
+                .filter(Boolean)
+                .map((item) => <Pill key={item}>{item}</Pill>)}
+
+            {date && <Pill>{date}</Pill>}
+            {agency && <Pill>{agency}</Pill>}
+          </motion.div>
         </div>
-      )}
 
-      <hr className="project-divider" />
-
-      {/* GOALS */}
-      {goals && (
-        <div className="mb-12 max-w-6xl">
-          <h3 className="text-xl font-semibold mb-4">Clear Project Goals</h3>
-          <ul className="list-disc list-inside text-gray-700 space-y-2">
-            {goals.business && <li><strong>Business:</strong> {goals.business}</li>}
-            {goals.design && <li><strong>Design:</strong> {goals.design}</li>}
-            {goals.tech && <li><strong>Technical:</strong> {goals.tech}</li>}
-          </ul>
-        </div>
-      )}
-
-      {/* TECH STACK */}
-      {techStack && (
-        <div className="mb-12 max-w-6xl">
-          <h3 className="text-xl font-semibold mb-4">Tech Stack</h3>
-          <p>{techStack}</p>
-        </div>
-      )}
-
-      {/* ACCESSIBILITY */}
-      {hasAccessibility && (
-        <div className="mb-12 max-w-6xl">
-          <h3 className="text-xl font-semibold mb-4">Accessibility Considerations</h3>
-          <ul className="list-disc pl-6 mt-2 text-gray-700 space-y-1">
-            {accessibility.map((point, index) => (
-              <li key={index}>{point}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-      <hr className="project-divider" />
-
-      {/* Process Steps */}
-      {hasProcess && (
-        <div className="space-y-6">
-          <h3 className="text-lg font-semibold">Design & Development Process</h3>
-          {processSteps.map((step, index) => (
-            <div key={index} className="border-l-4 border-gray-300 pl-4">
-              <h4 className="font-medium text-gray-900">
-                Step {index + 1}: {step.title}
-              </h4>
-              <p className="text-gray-700 mt-1">{step.description}</p>
-              {step.image && (
-                <img
-                  src={step.image}
-                  alt={step.title}
-                  className="mt-4 rounded-xl shadow"
-                />
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-      <hr className="project-divider" />
-
-      {/* Final Results */}
-      {hasFinalImages && (
-        <div>
-          <h3 className="text-lg font-semibold mb-4">Final Results</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {finalImages.map((img, index) => (
-              <img
-                key={index}
-                src={img}
-                alt={`Final Image ${index + 1}`}
-                className="rounded-xl shadow"
+        {heroImg && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98, y: 24 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{
+              duration: 0.85,
+              delay: 0.2,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mx-auto mt-12 max-w-7xl"
+          >
+            <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] shadow-2xl">
+              <motion.img
+                src={heroImg}
+                alt={outcomeTitle || "Project preview"}
+                className="h-full w-full object-cover"
+                whileHover={{ scale: 1.015 }}
+                transition={{ duration: 0.45 }}
               />
+            </div>
+          </motion.div>
+        )}
+
+        {hasImpact && (
+          <div className="mx-auto mt-8 grid max-w-7xl gap-4 md:grid-cols-3">
+            {impact.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{
+                  duration: 0.65,
+                  delay: index * 0.08,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{ y: -4 }}
+                className="rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-white/[0.07] to-white/[0.03] p-5"
+              >
+                <p className="text-sm leading-relaxed text-white/80 md:text-base">
+                  {item}
+                </p>
+              </motion.div>
             ))}
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Key Takeaways */}
-      {hasTakeaways && (
-        <div>
-          <h3 className="text-lg font-semibold">Key Takeaways</h3>
-          <ul className="list-disc pl-6 mt-2 text-gray-700 space-y-1">
-            {takeaways.map((point, index) => (
-              <li key={index}>{point}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+        <div className="mx-auto mt-20 grid max-w-7xl gap-12 xl:grid-cols-[220px_minmax(0,1fr)]">
+          <aside className="hidden xl:block">
+            <motion.div
+              {...fadeUp}
+              className="sticky top-28 rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5"
+            >
+              <p className="text-[11px] uppercase tracking-[0.22em] text-white/35">
+                On this page
+              </p>
 
-      {/* Buttons */}
-      {(liveDemoUrl || viewCodeUrl) && (
-        <div className="flex flex-wrap gap-4 mt-6">
-          {liveDemoUrl && (
-            <a
-              href={liveDemoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-2 bg-black text-white rounded-xl hover:bg-gray-800"
-            >
-              Live Demo
-            </a>
-          )}
-          {viewCodeUrl && (
-            <a
-              href={viewCodeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-2 border border-black rounded-xl hover:bg-gray-100"
-            >
-              View Code
-            </a>
-          )}
+              <nav className="mt-5 space-y-3">
+                {sections.map((section) => (
+                  <a
+                    key={section.id}
+                    href={`#${section.id}`}
+                    className="block text-sm text-white/60 transition hover:text-white"
+                  >
+                    {section.label}
+                  </a>
+                ))}
+              </nav>
+            </motion.div>
+          </aside>
+
+          <div className="space-y-20">
+            <section id="overview" className="scroll-mt-28">
+              <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+                <MetaCard label="Services" value={services} />
+                <MetaCard label="Date" value={date} />
+                <MetaCard label="Agency" value={agency} />
+                <MetaCard label="Client" value={client?.title} />
+              </div>
+
+              <div className="mt-8 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+                <motion.div
+                  {...fadeUp}
+                  whileHover={{ y: -4 }}
+                  className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.03] p-7 md:p-8"
+                >
+                  <SectionKicker>Audience</SectionKicker>
+                  <SectionTitle className="mt-3">
+                    Who this experience was built for
+                  </SectionTitle>
+                  <BodyText className="mt-5">{targetAudience}</BodyText>
+                </motion.div>
+
+                <motion.div
+                  {...fadeUp}
+                  whileHover={{ y: -4 }}
+                  className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7 md:p-8"
+                >
+                  <SectionKicker>Role</SectionKicker>
+                  <SectionTitle className="mt-3">My contribution</SectionTitle>
+                  <BodyText className="mt-5">{role}</BodyText>
+                </motion.div>
+              </div>
+            </section>
+
+            <section id="challenge" className="scroll-mt-28">
+              <motion.div {...fadeUp} className="max-w-4xl">
+                <SectionKicker>Challenge</SectionKicker>
+                <SectionTitle className="mt-3">
+                  The problem behind the experience
+                </SectionTitle>
+                <BodyText className="mt-5">{problem}</BodyText>
+              </motion.div>
+
+              {client?.title && client?.image && (
+                <div className="mt-10 grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
+                  <motion.div {...fadeUp}>
+                    <SectionKicker>Context</SectionKicker>
+                    <SectionTitle className="mt-3">{client.title}</SectionTitle>
+                    <BodyText className="mt-5">
+                      This project centered on translating user needs and product
+                      goals into a cleaner, more thoughtful digital experience.
+                    </BodyText>
+                  </motion.div>
+
+                  <motion.div
+                    {...fadeUp}
+                    className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]"
+                  >
+                    <motion.img
+                      src={client.image}
+                      alt={client.title}
+                      className="w-full object-cover"
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.45 }}
+                    />
+                  </motion.div>
+                </div>
+              )}
+            </section>
+
+            {goals && (
+              <section id="goals" className="scroll-mt-28">
+                <motion.div {...fadeUp} className="max-w-4xl">
+                  <SectionKicker>Goals</SectionKicker>
+                  <SectionTitle className="mt-3">
+                    Aligning business, design, and technical outcomes
+                  </SectionTitle>
+                </motion.div>
+
+                <div className="mt-8 grid gap-5 lg:grid-cols-3">
+                  {goals.business && (
+                    <motion.div
+                      {...fadeUp}
+                      whileHover={{ y: -4 }}
+                      className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7"
+                    >
+                      <SectionKicker>Business</SectionKicker>
+                      <BodyText className="mt-4">{goals.business}</BodyText>
+                    </motion.div>
+                  )}
+
+                  {goals.design && (
+                    <motion.div
+                      {...fadeUp}
+                      whileHover={{ y: -4 }}
+                      className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7"
+                    >
+                      <SectionKicker>Design</SectionKicker>
+                      <BodyText className="mt-4">{goals.design}</BodyText>
+                    </motion.div>
+                  )}
+
+                  {goals.tech && (
+                    <motion.div
+                      {...fadeUp}
+                      whileHover={{ y: -4 }}
+                      className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7"
+                    >
+                      <SectionKicker>Technical</SectionKicker>
+                      <BodyText className="mt-4">{goals.tech}</BodyText>
+                    </motion.div>
+                  )}
+                </div>
+
+                {(techStack || hasAccessibility) && (
+                  <div className="mt-5 grid gap-5 lg:grid-cols-2">
+                    {techStack && (
+                      <motion.div
+                        {...fadeUp}
+                        whileHover={{ y: -4 }}
+                        className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7"
+                      >
+                        <SectionKicker>Tech Stack</SectionKicker>
+                        <BodyText className="mt-4">
+                          {Array.isArray(techStack)
+                            ? techStack.join(" · ")
+                            : techStack}
+                        </BodyText>
+                      </motion.div>
+                    )}
+
+                    {hasAccessibility && (
+                      <motion.div
+                        {...fadeUp}
+                        whileHover={{ y: -4 }}
+                        className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7"
+                      >
+                        <SectionKicker>Accessibility</SectionKicker>
+                        <ul className="mt-4 space-y-3">
+                          {accessibility.map((point, index) => (
+                            <li
+                              key={index}
+                              className="text-sm leading-relaxed text-white/70 md:text-base"
+                            >
+                              • {point}
+                            </li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    )}
+                  </div>
+                )}
+              </section>
+            )}
+
+            {hasProcess && (
+              <section id="process" className="scroll-mt-28">
+                <motion.div {...fadeUp} className="max-w-4xl">
+                  <SectionKicker>Process</SectionKicker>
+                  <SectionTitle className="mt-3">
+                    From discovery to a refined final experience
+                  </SectionTitle>
+                  <BodyText className="mt-5">
+                    A structured process focused on clarifying user needs,
+                    reducing friction, and translating strategic thinking into
+                    polished interface decisions.
+                  </BodyText>
+                </motion.div>
+
+                <div className="mt-10 space-y-8">
+                  {processSteps.map((step, index) => (
+                    <motion.article
+                      key={`${step.title}-${index}`}
+                      initial={{ opacity: 0, y: 28 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.2 }}
+                      transition={{
+                        duration: 0.7,
+                        delay: index * 0.06,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      whileHover={{ y: -3 }}
+                      className="grid gap-6 rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 md:p-8 lg:grid-cols-[120px_minmax(0,1fr)]"
+                    >
+                      <div className="flex h-fit w-fit items-center justify-center rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-white/75">
+                        Step {index + 1}
+                      </div>
+
+                      <div>
+                        <h3 className="text-xl font-semibold tracking-tight text-white md:text-2xl">
+                          {step.title}
+                        </h3>
+
+                        <BodyText className="mt-4">{step.description}</BodyText>
+
+                        {step.image && (
+                          <div className="mt-6 overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03]">
+                            <motion.img
+                              src={step.image}
+                              alt={step.title}
+                              className="w-full object-cover"
+                              whileHover={{ scale: 1.02 }}
+                              transition={{ duration: 0.45 }}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </motion.article>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {hasFinalImages && (
+              <section id="outcome" className="scroll-mt-28">
+                <motion.div {...fadeUp} className="max-w-4xl">
+                  <SectionKicker>Outcome</SectionKicker>
+                  <SectionTitle className="mt-3">
+                    Final interface and visual direction
+                  </SectionTitle>
+                </motion.div>
+
+                <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                  {finalImages.map((img, index) => (
+                    <motion.div
+                      key={`${img}-${index}`}
+                      initial={{ opacity: 0, y: 22 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.2 }}
+                      transition={{
+                        duration: 0.65,
+                        delay: index * 0.07,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className={`overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03] ${
+                        index === 0 ? "sm:col-span-2" : ""
+                      }`}
+                    >
+                      <motion.img
+                        src={img}
+                        alt={`Final result ${index + 1}`}
+                        className="h-full w-full object-cover"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ duration: 0.45 }}
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {hasTakeaways && (
+              <section id="reflection" className="scroll-mt-28">
+                <motion.div
+                  {...fadeUp}
+                  whileHover={{ y: -3 }}
+                  className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.07] to-white/[0.02] p-7 md:p-8"
+                >
+                  <SectionKicker>Reflection</SectionKicker>
+                  <SectionTitle className="mt-3">
+                    What this project reinforced
+                  </SectionTitle>
+
+                  <ul className="mt-6 space-y-4">
+                    {takeaways.map((point, index) => (
+                      <li
+                        key={index}
+                        className="text-sm leading-relaxed text-white/75 md:text-base"
+                      >
+                        • {point}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              </section>
+            )}
+
+            {(liveDemoUrl || viewCodeUrl) && (
+              <motion.section
+                {...fadeUp}
+                className="border-t border-white/10 pt-10"
+              >
+                <div className="flex flex-wrap gap-4">
+                  {liveDemoUrl && (
+                    <motion.a
+                      href={liveDemoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ y: -3 }}
+                      className="rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition hover:bg-white/90"
+                    >
+                      Live Demo
+                    </motion.a>
+                  )}
+
+                  {viewCodeUrl && (
+                    <motion.a
+                      href={viewCodeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ y: -3 }}
+                      className="rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-medium text-white transition hover:bg-white hover:text-black"
+                    >
+                      View Code
+                    </motion.a>
+                  )}
+                </div>
+              </motion.section>
+            )}
+          </div>
         </div>
-      )}
-    </div>
+      </div>
+    </section>
   );
 };
 
