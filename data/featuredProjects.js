@@ -27,26 +27,26 @@ const featuredProjects = [
     date: "2025-04-01",
     status: "Admin CMS",
   },
-  {
-    slug: "freelanceflow",
-    title: "FreelanceFlow",
-    image1: "freelanceflow/cover.jpg",
-    createdAt: "2025-09-12",
-    status: "Product Design",
-    shortDescription:
-      "A workflow-focused platform for freelancers to manage projects, invoices, time tracking, and proposals in one place.",
-    tags: ["UX Design", "React", "SaaS", "Dashboard"],
-  },
-  {
-    slug: "portfolio-cms",
-    title: "Portfolio CMS",
-    image1: "portfolio-cms/cover.jpg",
-    createdAt: "2025-08-10",
-    status: "Design + Development",
-    shortDescription:
-      "A custom CMS-driven portfolio system built to manage project content, case studies, and frontend presentation efficiently.",
-    tags: ["CMS", "UI Design", "Express", "MongoDB"],
-  },
+  // {
+  //   slug: "freelanceflow",
+  //   title: "FreelanceFlow",
+  //   image1: "freelanceflow/cover.jpg",
+  //   createdAt: "2025-09-12",
+  //   status: "Product Design",
+  //   shortDescription:
+  //     "A workflow-focused platform for freelancers to manage projects, invoices, time tracking, and proposals in one place.",
+  //   tags: ["UX Design", "React", "SaaS", "Dashboard"],
+  // },
+  // {
+  //   slug: "portfolio-cms",
+  //   title: "Portfolio CMS",
+  //   image1: "portfolio-cms/cover.jpg",
+  //   createdAt: "2025-08-10",
+  //   status: "Design + Development",
+  //   shortDescription:
+  //     "A custom CMS-driven portfolio system built to manage project content, case studies, and frontend presentation efficiently.",
+  //   tags: ["CMS", "UI Design", "Express", "MongoDB"],
+  // },
 ];
 
 export default featuredProjects;
