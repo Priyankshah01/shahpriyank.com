@@ -1,5 +1,3 @@
-// pages/projects/basicsui.jsx
-import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import ConnectSection from "../../components/ConnectSection";
 import ProjectIntro from "../../components/ProjectIntro";
@@ -7,47 +5,78 @@ import ProjectIntro from "../../components/ProjectIntro";
 export default function BasicsPage() {
   return (
     <>
-      <Navbar />
       <main>
         <ProjectIntro
           heroImg="/images/Basics-ui2.jpg"
-          services="Design Systems, UI Design, Developer Experience"
+          services="Design Systems · UI Design · Accessibility · Developer Experience"
           date="June 2024"
           agency="Self-Initiated Project"
-          outcomeTitle="Basics UI: A Minimal UI System for Fast, Accessible Prototyping"
-          outcomeSubtitle="A lightweight, unopinionated UI foundation built for rapid product exploration and scalability."
+
+          outcomeTitle="Designing a minimal UI system for faster prototyping, stronger consistency, and better developer handoff."
+          outcomeSubtitle="Basics UI is a lightweight design system created to help designers and developers move quickly without sacrificing accessibility, flexibility, or visual clarity."
+
+          impact={[
+            "Created a scalable foundation for rapid product exploration and MVP design.",
+            "Improved consistency across components through a lean token-based system.",
+            "Reduced friction between design and development with clearer patterns and reusable logic."
+          ]}
 
           client={{
-            title: "Internal / Personal Project",
+            title: "Basics UI",
             image: "/images/Basics-ui3.jpg",
           }}
 
-          targetAudience="Freelance designers, frontend developers, and lean startup teams working on MVPs or early-stage ideas."
+          targetAudience="Freelance designers, frontend developers, and lean product teams working on MVPs, internal tools, and early-stage digital products that need speed, consistency, and room for customization."
 
-          problem="Most UI kits available today are either overly opinionated, visually heavy, or difficult to customize—especially when you want to experiment quickly without sacrificing consistency or accessibility."
+          problem="Many existing UI kits are either too opinionated, visually heavy, or difficult to adapt to evolving product needs. For teams trying to move quickly, this creates friction: design systems can feel bloated, customization becomes harder than expected, and accessibility is often treated as an afterthought rather than a built-in foundation."
 
-          role="This was a solo effort. I conceptualized, designed, and documented the entire system—from component planning and Figma design to building out tokens and receiving feedback from real users."
+          role="This was a self-initiated end-to-end systems design project. I defined the system strategy, designed the component library, built the token structure, tested the patterns with real users, and refined the system based on feedback from designers and developers."
+
+          goals={{
+            business:
+              "Create a lightweight and adaptable UI foundation that helps teams prototype faster and scale more consistently across product ideas.",
+            design:
+              "Design a clean, minimal, and accessible system that supports visual consistency without forcing a rigid aesthetic.",
+            tech:
+              "Establish reusable tokens, component logic, and interaction patterns that make handoff and implementation faster for developers."
+          }}
+
+          techStack={[
+            "Figma",
+            "Design Tokens",
+            "Auto Layout",
+            "Variants",
+            "Component Documentation",
+            "Responsive States",
+          ]}
+
+          accessibility={[
+            "Planned accessible color contrast and interaction states from the beginning.",
+            "Considered keyboard accessibility and focus visibility across core components.",
+            "Used clear spacing, typography, and visual hierarchy to improve scanability.",
+            "Designed for both light and dark themes without compromising readability."
+          ]}
 
           processSteps={[
             {
-              title: "Competitive Research & Analysis",
+              title: "Competitive Research & Opportunity Mapping",
               description:
-                "I began by analyzing existing design systems like Tailwind UI, Radix Primitives, and Chakra UI. While powerful, many of them required deep setup or imposed visual styles that made branding feel generic. My goal: simplicity + flexibility, out of the box. I also interviewed 5 freelancers about what they struggle with during MVP design. Their insights guided the early scope.",
+                "I started by reviewing systems such as Tailwind UI, Radix Primitives, and Chakra UI to understand where current tools were strong and where they introduced friction. While many were powerful, they often required heavy setup or imposed stylistic defaults that limited flexibility. I also spoke with freelance designers and developers to understand what slows them down when moving from idea to usable interface."
             },
             {
-              title: "System Planning & Token Setup",
+              title: "System Planning & Token Architecture",
               description:
-                "I mapped out a lean component library that focused on high-utility elements: buttons, inputs, dropdowns, modals, and tabs. Each component was supported by a token system (colors, spacing, typography, radii) designed to be platform-agnostic. Accessibility was a first-class citizen — every component met WCAG 2.1 standards from the start.",
+                "I defined a lean system focused on high-utility building blocks: buttons, inputs, dropdowns, tabs, modals, and foundational primitives. I paired these with a token structure covering color, spacing, typography, radius, and state behavior. The goal was to create a system that felt intentionally minimal while still supporting consistency, scalability, and adaptation across different product contexts."
             },
             {
-              title: "UI Prototyping & Testing",
+              title: "UI Design & Prototype Validation",
               description:
-                "I built all components in Figma using auto layout, variants, and tokens. Each design was also tested in light and dark modes. I shared early versions with developer peers to test integration speed. Their feedback helped me tweak spacing logic, token structure, and interactive states like hover/focus. One key goal was to make handoff to devs seamless.",
+                "I designed the component set in Figma using Auto Layout, variants, and reusable patterns to ensure flexibility. Components were tested in both light and dark modes, with special attention to spacing rhythm, interactive states, and readability. I shared early versions with developer peers to evaluate integration speed and identify pain points in naming, structure, and behavior."
             },
             {
-              title: "Iteration Based on Real Feedback",
+              title: "Iteration Through Real Feedback",
               description:
-                "I released the system to a small Slack group of freelance designers and React devs. They loved the clarity and minimalism. Based on their feedback, I added spacing helpers, responsive states, and refined the documentation. This led to better adoption and satisfaction without bloating the system.",
+                "After sharing the system with a small group of freelance designers and React developers, I refined spacing helpers, responsive behavior, and documentation clarity. This feedback helped improve adoption without expanding the system unnecessarily. The result was a more focused design system that supported both product exploration and smoother developer handoff.",
               image: "/images/Basics-ui5.jpg",
             },
           ]}
@@ -55,16 +84,18 @@ export default function BasicsPage() {
           finalImages={[
             "/images/Basics-ui5.jpg",
             "/images/Basics-ui4.jpg",
-            "/images/Basics-ui1.jpg"  ,
+            "/images/Basics-ui1.jpg",
           ]}
 
           takeaways={[
-            "🎯 Design Tokens Create Scale: Using tokens allowed me to easily update themes, support dark mode, and scale across platforms with zero visual drift.",
-            "♿ Accessibility From Day 1: Planning for keyboard navigation and color contrast early on saved time and improved usability dramatically.",
-            "🧪 Feedback = Focus: Real feedback from freelancers and devs helped me avoid scope creep and improve developer experience (DX) from the start.",
+            "Design tokens created a strong foundation for scale, making it easier to support themes, consistency, and future expansion.",
+            "Accessibility became more effective when treated as a system-level decision rather than a final checklist.",
+            "Early feedback from designers and developers helped keep the system lean, practical, and implementation-friendly.",
+            "This project reinforced how strong systems thinking can improve both user experience and team efficiency."
           ]}
         />
       </main>
+
       <ConnectSection />
       <Footer />
     </>
