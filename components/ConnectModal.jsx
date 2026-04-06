@@ -54,7 +54,7 @@ function ConnectModal({ isOpen, onClose }) {
     const toastId = toast.loading("Sending message...");
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("/api/Contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
