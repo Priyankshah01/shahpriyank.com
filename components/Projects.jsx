@@ -22,15 +22,14 @@ const ProjectShowcase = () => {
           </p>
 
           <h2 className="text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
-            A curated selection of{" "}
-            <span className="text-white/45">design-led digital products</span>{" "}
-            built with strategy, clarity, and craft.
+            Product design case studies built with{" "}
+            <span className="text-white/45">clarity, strategy, and craft.</span>
           </h2>
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/65 md:text-lg">
-            These projects highlight my approach across UI/UX design, product
-            thinking, and frontend development — from concept and workflows to
-            polished interfaces and implementation.
+            A curated selection of projects across UX/UI design, design systems,
+            and frontend implementation — focused on solving real product and
+            usability challenges.
           </p>
         </motion.div>
 
@@ -54,13 +53,13 @@ const ProjectShowcase = () => {
               >
                 <Link
                   href={`/projects/${project.slug}`}
-                  className="group relative block overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05]"
+                  className="group relative block overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05]"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <motion.img
                       src={`/images/${project.image1}`}
                       alt={project.title}
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-cover will-change-transform"
                       loading="lazy"
                       whileHover={{ scale: 1.03 }}
                       transition={{
@@ -69,30 +68,21 @@ const ProjectShowcase = () => {
                       }}
                     />
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent transition duration-300 group-hover:from-black/55" />
                   </div>
 
                   <div className="p-6 md:p-7">
                     <div className="mb-4 flex items-center justify-between gap-4 text-sm text-white/45">
-                      <span>{projectYear}</span>
+                      <span>{project.category || projectYear}</span>
                       <span>{project.status || "Case Study"}</span>
                     </div>
 
                     <h3 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
                       {project.title}
-                      <motion.span
-                        className="ml-2 inline-block"
-                        whileHover={{ x: 4, y: -4 }}
-                        transition={{ duration: 0.25 }}
-                      >
-                        ↗
-                      </motion.span>
                     </h3>
 
-                    <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/65 md:text-base">
-                      {project.shortDescription ||
-                        project.description ||
-                        "A product-focused case study showcasing UX thinking, interface design, and frontend execution."}
+                    <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/75 md:text-base">
+                      {project.shortDescription}
                     </p>
 
                     {project.tags?.length > 0 && (
@@ -107,6 +97,13 @@ const ProjectShowcase = () => {
                         ))}
                       </div>
                     )}
+
+                    <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white/80 transition duration-300 group-hover:text-white">
+                      <span>View Case Study</span>
+                      <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5">
+                        →
+                      </span>
+                    </div>
                   </div>
                 </Link>
               </motion.div>
@@ -127,9 +124,12 @@ const ProjectShowcase = () => {
         >
           <Link
             href="/projects"
-            className="inline-flex items-center rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-medium text-white transition hover:bg-white hover:text-black"
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-medium text-white transition duration-300 ease-out hover:-translate-y-0.5 hover:bg-white hover:text-black"
           >
-            View All Projects
+            <span>View All Projects</span>
+            <span className="transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
           </Link>
         </motion.div>
       </div>
