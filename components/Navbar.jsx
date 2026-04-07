@@ -80,8 +80,8 @@ export default function Navbar() {
         ? "text-white"
         : "text-white/65 hover:text-white"
       : active
-      ? "text-black"
-      : "text-black/60 hover:text-black";
+        ? "text-black"
+        : "text-black/60 hover:text-black";
 
   return (
     <header
@@ -103,9 +103,8 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`group relative text-sm font-medium transition-colors duration-300 ${
-                  active ? textClass : mutedTextClass
-                }`}
+                className={`group relative text-sm font-medium transition-colors duration-300 ${active ? textClass : mutedTextClass
+                  }`}
               >
                 <span className="relative inline-block overflow-hidden">
                   <span className="block transition-transform duration-300 group-hover:-translate-y-full">
@@ -117,9 +116,8 @@ export default function Navbar() {
                 </span>
 
                 <span
-                  className={`absolute -bottom-2 left-0 h-[2px] rounded-full transition-all duration-300 ${underlineClass} ${
-                    active ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
+                  className={`absolute -bottom-2 left-0 h-[2px] rounded-full transition-all duration-300 ${underlineClass} ${active ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
                 />
               </Link>
             );
@@ -127,12 +125,17 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden md:block">
-          <Link
-            href="/resume"
-            className={`inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-medium transition duration-300 ease-out ${desktopButtonClass}`}
+          <a
+            href="/resume/Priyank_Shah_Resume_2026.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition duration-300 ease-out ${desktopButtonClass}`}
           >
-            Resume
-          </Link>
+            <span>Resume</span>
+            <span className="transition-transform duration-300 group-hover:translate-x-1">
+              ↗
+            </span>
+          </a>
         </div>
 
         <button
@@ -144,28 +147,24 @@ export default function Navbar() {
         >
           <div className="relative h-4 w-5">
             <span
-              className={`absolute left-0 top-0 h-[2px] w-5 transition-all duration-300 ${
-                isDarkModeNavbar ? "bg-white" : "bg-black"
-              } ${isOpen ? "top-[7px] rotate-45" : ""}`}
+              className={`absolute left-0 top-0 h-[2px] w-5 transition-all duration-300 ${isDarkModeNavbar ? "bg-white" : "bg-black"
+                } ${isOpen ? "top-[7px] rotate-45" : ""}`}
             />
             <span
-              className={`absolute left-0 top-[7px] h-[2px] w-5 transition-all duration-300 ${
-                isDarkModeNavbar ? "bg-white" : "bg-black"
-              } ${isOpen ? "opacity-0" : "opacity-100"}`}
+              className={`absolute left-0 top-[7px] h-[2px] w-5 transition-all duration-300 ${isDarkModeNavbar ? "bg-white" : "bg-black"
+                } ${isOpen ? "opacity-0" : "opacity-100"}`}
             />
             <span
-              className={`absolute left-0 top-[14px] h-[2px] w-5 transition-all duration-300 ${
-                isDarkModeNavbar ? "bg-white" : "bg-black"
-              } ${isOpen ? "top-[7px] -rotate-45" : ""}`}
+              className={`absolute left-0 top-[14px] h-[2px] w-5 transition-all duration-300 ${isDarkModeNavbar ? "bg-white" : "bg-black"
+                } ${isOpen ? "top-[7px] -rotate-45" : ""}`}
             />
           </div>
         </button>
       </div>
 
       <div
-        className={`overflow-hidden transition-all duration-300 md:hidden ${
-          isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
-        } ${mobilePanelClass}`}
+        className={`overflow-hidden transition-all duration-300 md:hidden ${isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+          } ${mobilePanelClass}`}
       >
         <nav className="mx-auto flex max-w-7xl flex-col px-6 py-6">
           {navLinks.map((link) => {
@@ -186,11 +185,10 @@ export default function Navbar() {
 
           <Link
             href="/resume"
-            className={`mt-6 inline-flex w-fit items-center justify-center rounded-full px-5 py-3 text-sm font-medium transition duration-300 ease-out ${
-              isDarkModeNavbar
+            className={`mt-6 inline-flex w-fit items-center justify-center rounded-full px-5 py-3 text-sm font-medium transition duration-300 ease-out ${isDarkModeNavbar
                 ? "bg-white text-black hover:-translate-y-0.5 hover:bg-white/90"
                 : "bg-black text-white hover:-translate-y-0.5 hover:opacity-90"
-            }`}
+              }`}
           >
             View Resume
           </Link>

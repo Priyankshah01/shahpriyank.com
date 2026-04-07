@@ -7,7 +7,7 @@ export default function FreelanceFlowPage() {
     <>
       <main>
         <ProjectIntro
-          heroImg="/images/freelanceflow/hero.jpg"
+          heroImg="/images/freelanceflowhero2.jpg"
 
           services="Product Design · UX/UI Design · Frontend Development"
           date="2025"
@@ -24,7 +24,7 @@ export default function FreelanceFlowPage() {
 
           client={{
             title: "FreelanceFlow",
-            image: "/images/freelanceflow/client.jpg",
+            image: "/images/freelanceflow_Client Dashbaord.jpg",
           }}
 
           targetAudience="Freelancers, consultants, and independent professionals managing multiple clients, projects, invoices, and time tracking across disconnected tools."
@@ -83,14 +83,14 @@ export default function FreelanceFlowPage() {
               title: "Frontend Implementation",
               description:
                 "I translated the designs into a responsive React application using Tailwind CSS. I focused on performance, consistency, and building reusable components that align with the design system.",
-              image: "/images/freelanceflow/2.jpg",
+              image: "/images/freelancceflow_Signin.jpg",
             },
           ]}
 
           finalImages={[
-            "/images/freelanceflow/1.jpg",
-            "/images/freelanceflow/2.jpg",
-            "/images/freelanceflow/3.jpg",
+            "/images/freelanceflow_Client-Post-a-Job-Step1.jpg",
+            "/images/freelanceflow_Freelancer-Browse-Job.jpg",
+            "/images/freelnceflow_Client-Post-a-Job-Step5.jpg",
           ]}
 
           takeaways={[
