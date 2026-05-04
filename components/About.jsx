@@ -59,7 +59,7 @@ function About() {
           </p>
           <h2 className="text-4xl font-semibold leading-[1.02] tracking-tight md:text-6xl">
             A hybrid designer shaping{" "}
-            <span className="text-white/45">clear, scalable, and immersive</span>{" "}
+            <span className="bg-gradient-to-t from-black-00 to-purple-700 bg-clip-text text-transparent">clear, scalable, and immersive</span>{" "}
             digital experiences.
           </h2>
         </motion.div>
@@ -75,7 +75,7 @@ function About() {
               ease: [0.22, 1, 0.36, 1],
             }}
             whileHover={{ y: -4 }}
-            className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.03] p-7 backdrop-blur-sm md:col-span-2 xl:col-span-2 xl:row-span-2"
+            className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-purple-900/[0.5] to-white/[0.03] p-7 backdrop-blur-sm md:col-span-2 xl:col-span-2 xl:row-span-2"
           >
             <div className="flex h-full flex-col justify-between">
               <div>
@@ -125,7 +125,9 @@ function About() {
               Experience
             </p>
             <div className="mt-6">
-              <p className="text-4xl font-semibold tracking-tight">4+</p>
+              <p className="text-4xl font-semibold tracking-tight text-purple-700">
+                4+
+              </p>
               <p className="mt-2 text-sm text-white/65">
                 Years across design, development, and digital products
               </p>
@@ -148,7 +150,9 @@ function About() {
               Based In
             </p>
             <div className="mt-6">
-              <p className="text-2xl font-semibold tracking-tight">Toronto, ON</p>
+              <p className="text-2xl font-semibold tracking-tight text-purple-700">
+                Toronto, ON
+              </p>
               <p className="mt-2 text-sm text-white/65">
                 Designing for modern products, brands, and business experiences
               </p>
@@ -202,14 +206,14 @@ function About() {
             <div className="mt-6 space-y-5">
               {experience.map((item, index) => (
                 <div key={item.company} className="relative pl-8">
-                  <div className="absolute left-0 top-1 h-3 w-3 rounded-full bg-white/80" />
+                  <div className="absolute left-0 top-1 h-3 w-3 rounded-full bg-purple-700/80" />
                   {index !== experience.length - 1 && (
                     <div className="absolute left-[5px] top-5 h-[calc(100%+14px)] w-px bg-white/10" />
                   )}
 
                   <div className="rounded-2xl border border-white/10 bg-black/30 p-5">
                     <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-                      <h3 className="text-lg font-medium text-white">
+                      <h3 className="text-lg font-medium text-purple-700">
                         {item.company}
                       </h3>
                       <span className="text-sm text-white/40">{item.role}</span>
@@ -246,7 +250,7 @@ function About() {
                   key={group}
                   className="rounded-2xl border border-white/10 bg-black/30 p-5"
                 >
-                  <h3 className="text-sm font-medium uppercase tracking-[0.14em] text-white/45">
+                  <h3 className="text-sm font-medium uppercase tracking-[0.14em] text-purple-700">
                     {group}
                   </h3>
 
@@ -281,12 +285,12 @@ function About() {
               Contact
             </p>
             <div className="mt-6">
-              <p className="text-xl font-semibold leading-snug">
+              <p className="text-xl font-semibold leading-snug ">
                 Open to thoughtful collaborations and product design roles.
               </p>
               <a
                 href="mailto:priyankshah0101@gmail.com"
-                className="mt-5 inline-flex text-sm text-white/70 underline-offset-4 hover:text-white hover:underline"
+                className="mt-5 inline-flex text-sm text-purple-700 underline-offset-4 hover:text-white hover:underline"
               >
                 priyankshah0101@gmail.com
               </a>

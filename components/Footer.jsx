@@ -76,7 +76,7 @@ function Footer() {
             >
               <h2 className="max-w-5xl text-5xl font-semibold leading-[0.92] tracking-tight md:text-7xl xl:text-[7rem]">
                 Let’s create something{" "}
-                <span className="text-white/40">worth remembering.</span>
+                <span className="bg-gradient-to-t from-black-00 to-purple-700 bg-clip-text text-transparent">worth remembering.</span>
               </h2>
 
               <motion.a

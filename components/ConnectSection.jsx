@@ -38,7 +38,7 @@ const ConnectSection = () => {
 
               <h2 className="max-w-4xl text-4xl font-semibold leading-[1.02] tracking-tight md:text-6xl">
                 Let’s build something{" "}
-                <span className="text-white/45">thoughtful, scalable,</span> and
+                <span className="bg-gradient-to-t from-black-00 to-purple-700 bg-clip-text text-transparent">thoughtful, scalable,</span> and
                 visually sharp.
               </h2>
 

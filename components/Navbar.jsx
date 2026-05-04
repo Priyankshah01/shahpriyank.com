@@ -45,14 +45,14 @@ export default function Navbar() {
 
   const isDarkModeNavbar = isHomePage && !isScrolled;
 
-  const textClass = isDarkModeNavbar ? "text-white" : "text-black";
+  const textClass = isDarkModeNavbar ? "text-white" : "text-white";
   const mutedTextClass = isDarkModeNavbar
     ? "text-white/60 hover:text-white"
-    : "text-black/60 hover:text-black";
-  const underlineClass = isDarkModeNavbar ? "bg-white" : "bg-black";
+    : "text-white/60 hover:text-white";
+  const underlineClass = isDarkModeNavbar ? "bg-white" : "bg-white";
   const headerClass = isDarkModeNavbar
     ? "bg-transparent"
-    : "border-b border-black/10 bg-white/80 backdrop-blur-xl";
+    : "border-b border-white/10 bg-gradient-to-t from-black-00 to-purple-700 bg-clip-text text-transparent backdrop-blur-xl";
 
   const logoHoverClass = isDarkModeNavbar
     ? "hover:text-white/75"

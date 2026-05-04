@@ -25,7 +25,7 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="mb-6 text-sm uppercase tracking-[0.25em] text-white/55"
+                className="rounded-full mb-6 text-sm uppercase tracking-[0.25em] text-white/55"
               >
                 UI/UX Designer · Web Designer · Frontend Developer
               </motion.p>
@@ -40,9 +40,8 @@ const Hero = () => {
                 }}
                 className="text-5xl font-semibold leading-[0.92] tracking-tight md:text-7xl xl:text-[5.5rem]"
               >
-                Designing digital experiences that feel{" "}
-                <span className="text-white/45">cinematic, intuitive,</span> and
-                built for real users.
+                Designer's eye.{" "}
+                <span className="bg-gradient-to-t from-black-00 to-purple-700 bg-clip-text text-transparent">Developer's logic.</span>
               </motion.h1>
 
               <motion.p
@@ -87,7 +86,7 @@ const Hero = () => {
                 </button>
               </motion.div>
 
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -107,7 +106,7 @@ const Hero = () => {
                     </span>
                   )
                 )}
-              </motion.div>
+              </motion.div> */}
             </div>
 
             <motion.div
@@ -179,7 +178,7 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -217,7 +216,7 @@ const Hero = () => {
                 priyankshah0101@gmail.com
               </a>
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </section>
 

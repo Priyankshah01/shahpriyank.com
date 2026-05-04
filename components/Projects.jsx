@@ -23,7 +23,7 @@ const ProjectShowcase = () => {
 
           <h2 className="text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
             Product design case studies built with{" "}
-            <span className="text-white/45">clarity, strategy, and craft.</span>
+            <span className="bg-gradient-to-t from-black-00 to-purple-700 bg-clip-text text-transparent">clarity, strategy, and craft.</span>
           </h2>
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/65 md:text-lg">
