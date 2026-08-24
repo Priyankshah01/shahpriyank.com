@@ -12,14 +12,14 @@ const services = [
 
 const experience = [
   {
-    company: "HRX Connect",
-    role: "UI/UX Designer",
+    company: "Walmart",
+    role: "UI/UX Designer & Frontend Developer",
     summary:
       "Redesigned internal dashboards and marketing experiences for a talent intelligence platform, improving clarity, usability, and product consistency.",
   },
   {
-    company: "CanSTEM",
-    role: "UI/UX Developer",
+    company: "Alayacare",
+    role: "UI/UX Designer",
     summary:
       "Revamped the website and student portal experience with a more structured, conversion-focused, and user-friendly interface.",
   },
@@ -126,7 +126,7 @@ function About() {
             </p>
             <div className="mt-6">
               <p className="text-4xl font-semibold tracking-tight text-purple-700">
-                4+
+                5+
               </p>
               <p className="mt-2 text-sm text-white/65">
                 Years across design, development, and digital products
