@@ -11,7 +11,7 @@ export default function FreelanceFlowPage() {
 
           services="Product Design · UX/UI Design · Frontend Development"
           date="2025"
-          agency="Capstone Project"
+          agency="Freelance"
 
           outcomeTitle="Designing a unified SaaS platform to simplify freelance workflows."
           outcomeSubtitle="FreelanceFlow is a product-focused dashboard experience that consolidates projects, invoices, and time tracking into a single, structured system for freelancers."
