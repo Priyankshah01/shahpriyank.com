@@ -1,15 +1,13 @@
 // pages/projects/portfolio-cms.jsx
-import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import ConnectSection from "../../components/ConnectSection";
 import ProjectIntro from "../../components/ProjectIntro";
 
 export default function PortfolioCMSPage() {
   return (
     <>
-      <Navbar />
       <main>
         <ProjectIntro
+          projectName="Portfolio CMS"
           heroImg="/images/portfolio-cms-hero.jpg"
           services="Full-Stack Development, API Design, CMS Architecture"
           date="July 2024"
@@ -67,7 +65,6 @@ export default function PortfolioCMSPage() {
           viewCodeUrl="https://github.com/Priyankshah01/portfolio-admin-api"
         />
       </main>
-      <ConnectSection />
       <Footer />
     </>
   );

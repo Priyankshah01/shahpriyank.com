@@ -1,5 +1,4 @@
 import Footer from "../../components/Footer";
-import ConnectSection from "../../components/ConnectSection";
 import ProjectIntro from "../../components/ProjectIntro";
 
 export default function LegoStepFinderPage() {
@@ -97,8 +96,6 @@ export default function LegoStepFinderPage() {
           viewCodeUrl="https://github.com/Priyankshah01/LEGO-Step-Finder"
         />
       </main>
-
-      <ConnectSection />
       <Footer />
     </>
   );

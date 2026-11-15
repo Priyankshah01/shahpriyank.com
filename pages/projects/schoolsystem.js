@@ -1,15 +1,13 @@
 // pages/projects/basiscsui.jsx
-import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import ConnectSection from "../../components/ConnectSection";
 import ProjectIntro from "../../components/ProjectIntro";
 
 export default function SchoolSysPage() {
   return (
     <>
-      <Navbar />
       <main>
         <ProjectIntro
+          projectName="School System"
           heroImg="/images/schoolsys-ui.jpg"
           outcomeTitle="Basics UI."
           outcomeSubtitle="Minimal UI System for Rapid Prototyping"
@@ -57,7 +55,6 @@ export default function SchoolSysPage() {
           ]}
         />
       </main>
-      <ConnectSection />
       <Footer />
     </>
   );

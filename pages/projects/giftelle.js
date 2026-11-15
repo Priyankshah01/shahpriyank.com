@@ -1,5 +1,4 @@
 import Footer from "../../components/Footer";
-import ConnectSection from "../../components/ConnectSection";
 import ProjectIntro from "../../components/ProjectIntro";
 
 export default function GiftellePage() {
@@ -92,8 +91,6 @@ export default function GiftellePage() {
           viewCodeUrl="https://github.com/Priyankshah01/giftelle"
         />
       </main>
-
-      <ConnectSection />
       <Footer />
     </>
   );

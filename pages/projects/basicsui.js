@@ -1,5 +1,4 @@
 import Footer from "../../components/Footer";
-import ConnectSection from "../../components/ConnectSection";
 import ProjectIntro from "../../components/ProjectIntro";
 
 export default function BasicsPage() {
@@ -83,8 +82,6 @@ export default function BasicsPage() {
           ]}
         />
       </main>
-
-      <ConnectSection />
       <Footer />
     </>
   );
