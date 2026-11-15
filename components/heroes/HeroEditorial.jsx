@@ -24,7 +24,7 @@ export default function HeroEditorial() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="flex items-center justify-between border-b border-white/10 pb-5 text-sm text-white/55"
+          className="flex flex-col gap-1.5 border-b border-white/10 pb-5 sm:flex-row sm:items-center sm:justify-between font-mono text-xs uppercase tracking-[0.12em] text-white/55"
         >
           <span>Product Designer · Design Engineer</span>
           <span>Toronto, Canada</span>
@@ -46,7 +46,7 @@ export default function HeroEditorial() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease }}
-            className="h-28 w-24 rounded-2xl object-cover grayscale transition hover:grayscale-0"
+            className="h-24 w-20 rounded-2xl object-cover grayscale md:h-28 md:w-24 transition hover:grayscale-0"
           />
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -64,7 +64,7 @@ export default function HeroEditorial() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease }}
-            className="inline-flex h-28 w-28 items-center justify-center rounded-full bg-violet-400 text-center text-sm font-semibold text-black transition hover:scale-105"
+            className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-violet-400 text-center text-xs font-semibold md:h-28 md:w-28 md:text-sm text-black transition hover:scale-105"
           >
             See work ↓
           </motion.a>
@@ -73,7 +73,7 @@ export default function HeroEditorial() {
 
       <div className="border-y border-white/10 py-5">
         <motion.div
-          className="flex w-max gap-12 whitespace-nowrap text-sm uppercase tracking-[0.2em] text-white/45"
+          className="flex w-max gap-12 whitespace-nowrap font-mono text-xs uppercase tracking-[0.15em] text-white/45"
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 40, ease: "linear", repeat: Infinity }}
         >
