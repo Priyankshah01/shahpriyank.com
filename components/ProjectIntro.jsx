@@ -102,6 +102,8 @@ const ProjectIntro = ({
   processSteps = [],
   finalImages = [],
   impact = [],
+  impactLabel = "Impact",
+  impactTitle = "What changed",
   takeaways = [],
   liveDemoUrl,
   viewCodeUrl,
@@ -222,7 +224,7 @@ const ProjectIntro = ({
         {/* Body */}
         <div className="mt-20">
           {impact.length > 0 && (
-            <Section id="impact" index={++n} label="Impact" title="What changed">
+            <Section id="impact" index={++n} label={impactLabel} title={impactTitle}>
               <NumberedList items={impact} />
             </Section>
           )}
