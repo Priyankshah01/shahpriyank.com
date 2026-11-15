@@ -5,10 +5,25 @@ import { Toaster } from "react-hot-toast";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import { AnimatePresence, motion } from "motion/react";
+import { fontPairings, fontVariables } from "../lib/fonts";
 
 export default function App({ Component, pageProps, router }) {
+  const pairing = fontPairings[router.query.font];
+  const fontStyle = pairing
+    ? {
+        "--font-heading": pairing.heading,
+        "--font-body": pairing.body,
+        "--font-mono": pairing.mono,
+      }
+    : undefined;
+
   return (
-    <>
+    <div
+      className={`${fontVariables} ${pairing ? "font-preview" : ""} ${
+        pairing?.serifHeadings ? "serif-headings" : ""
+      }`}
+      style={fontStyle}
+    >
       <Head>
         <title>Priyank Shah | Product Designer & Design Engineer</title>
         <meta
@@ -34,6 +49,6 @@ export default function App({ Component, pageProps, router }) {
           <Component {...pageProps} />
         </motion.main>
       </AnimatePresence>
-    </>
+    </div>
   );
 }

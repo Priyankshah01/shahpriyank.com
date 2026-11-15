@@ -29,3 +29,20 @@ html {
     scroll-padding-top: 80px;
 }
 
+
+/* TEMP: font preview (?font=1..4) */
+.font-preview {
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+.font-preview :is(h1, h2, h3) {
+  font-family: var(--font-heading), system-ui, sans-serif;
+}
+.font-preview .font-mono,
+.font-preview pre {
+  font-family: var(--font-mono);
+}
+/* Instrument Serif only ships one weight; keep its headings regular and a bit looser. */
+.serif-headings :is(h1, h2, h3) {
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
