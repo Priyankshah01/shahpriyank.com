@@ -67,6 +67,129 @@ function Figure({ src, alt, className = "" }) {
   );
 }
 
+const severityStyle = {
+  High: "border-amber-400/50 text-amber-300",
+  Medium: "border-violet-400/50 text-violet-300",
+  Low: "border-white/20 text-white/60",
+};
+
+// Usability testing results: setup, headline numbers, per-task success and
+// the findings table (finding → evidence → severity → design change).
+function Testing({ testing }) {
+  const { setup = [], stats = [], tasks = [], findings = [], next } = testing;
+  const target = testing.successTarget ?? 80;
+
+  return (
+    <>
+      {setup.length > 0 && (
+        <dl className="grid gap-8 md:grid-cols-2">
+          {setup.map(([label, value], i) => (
+            <motion.div key={label} {...rise(i * 0.04)}>
+              <dt>
+                <Mono className="text-white/45">{label}</Mono>
+              </dt>
+              <dd className="mt-3 leading-relaxed text-white/75">{value}</dd>
+            </motion.div>
+          ))}
+        </dl>
+      )}
+
+      {stats.length > 0 && (
+        <div className="mt-12 grid grid-cols-2 border-t border-white/10 md:grid-cols-4">
+          {stats.map(([value, label], i) => (
+            <motion.div
+              key={label}
+              {...rise(i * 0.05)}
+              className="border-b border-white/10 py-6 pr-4 md:border-b-0"
+            >
+              <p className="text-4xl font-semibold tracking-tight md:text-5xl">{value}</p>
+              <p className="mt-2 text-sm leading-snug text-white/55">{label}</p>
+            </motion.div>
+          ))}
+        </div>
+      )}
+
+      {tasks.length > 0 && (
+        <motion.div {...rise()} className="mt-12">
+          <Mono className="text-white/45">Task success rate</Mono>
+          <ul className="mt-5 space-y-4">
+            {tasks.map((t) => {
+              const below = t.success < target;
+              return (
+                <li key={t.id} className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-2 text-sm">
+                  <span className="text-white/80">
+                    <span className="font-mono text-xs text-violet-400">{t.id}</span>{" "}
+                    {t.name}
+                    {t.time && <span className="text-white/45"> · {t.time}</span>}
+                  </span>
+                  <span className={`font-mono text-xs ${below ? "text-amber-300" : "text-white/70"}`}>
+                    {t.success}%
+                  </span>
+                  <span className="relative col-span-2 h-1.5 overflow-hidden rounded-full bg-white/10">
+                    <span
+                      className={`absolute inset-y-0 left-0 rounded-full ${below ? "bg-amber-400" : "bg-violet-400"}`}
+                      style={{ width: `${t.success}%` }}
+                    />
+                    <span
+                      aria-hidden
+                      className="absolute inset-y-0 w-px bg-white/60"
+                      style={{ left: `${target}%` }}
+                    />
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+          <p className="mt-4 text-xs text-white/45">
+            White tick marks the {target}% target. Amber marks tasks below it.
+          </p>
+        </motion.div>
+      )}
+
+      {findings.length > 0 && (
+        <div className="mt-14">
+          <Mono className="text-white/45">Findings and design changes</Mono>
+          <ol className="mt-5 border-t border-white/10">
+            {findings.map((f, i) => (
+              <motion.li
+                key={i}
+                {...rise()}
+                className="grid gap-3 border-b border-white/10 py-6 md:grid-cols-[2.5rem_1.1fr_6rem_1fr] md:gap-6"
+              >
+                <Mono className="pt-1 text-violet-400">{pad(i + 1)}</Mono>
+                <div>
+                  <p className="font-medium text-white">{f.finding}</p>
+                  <p className="mt-1 text-sm text-white/50">{f.evidence}</p>
+                </div>
+                <div>
+                  <span
+                    className={`inline-block rounded-full border px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-[0.1em] ${
+                      severityStyle[f.severity] || severityStyle.Low
+                    }`}
+                  >
+                    {f.severity}
+                  </span>
+                </div>
+                <p className="text-sm leading-relaxed text-white/75">
+                  <span className="text-white/40">→ </span>
+                  {f.change}
+                </p>
+              </motion.li>
+            ))}
+          </ol>
+        </div>
+      )}
+
+      {next && (
+        <motion.p {...rise()} className="mt-10 max-w-3xl leading-relaxed text-white/70">
+          <Mono className="mr-2 text-violet-400">Next round</Mono>
+          {next}
+        </motion.p>
+      )}
+    </>
+  );
+}
+
 function NumberedList({ items }) {
   return (
     <ol className="border-t border-white/10">
@@ -102,7 +225,10 @@ const ProjectIntro = ({
   processSteps = [],
   finalImages = [],
   impact = [],
+  impactLabel = "Impact",
+  impactTitle = "What changed",
   takeaways = [],
+  testing = null,
   liveDemoUrl,
   viewCodeUrl,
 }) => {
@@ -222,7 +348,7 @@ const ProjectIntro = ({
         {/* Body */}
         <div className="mt-20">
           {impact.length > 0 && (
-            <Section id="impact" index={++n} label="Impact" title="What changed">
+            <Section id="impact" index={++n} label={impactLabel} title={impactTitle}>
               <NumberedList items={impact} />
             </Section>
           )}
@@ -329,6 +455,17 @@ const ProjectIntro = ({
                   </motion.div>
                 ))}
               </div>
+            </Section>
+          )}
+
+          {testing && (
+            <Section
+              id="testing"
+              index={++n}
+              label="Testing"
+              title={testing.title || "Usability testing"}
+            >
+              <Testing testing={testing} />
             </Section>
           )}
 

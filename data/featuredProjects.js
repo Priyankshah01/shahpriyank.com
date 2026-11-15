@@ -4,11 +4,11 @@ const featuredProjects = [
     title: "FreelanceFlow",
     category: "Product Design",
     date: "2025-01-01",
-    status: "SaaS Dashboard",
+    status: "Capstone Project",
     image1: "freelanceflowhero.jpg",
     shortDescription:
-      "Unified fragmented freelance workflows into one scalable platform for projects, invoices, and time tracking.",
-    tags: ["SaaS", "Dashboard", "React"],
+      "A two-sided freelance marketplace covering the full hire-to-pay loop, from posting a job to secure payment, designed and built end to end.",
+    tags: ["Marketplace", "UX Research", "React"],
   },
   {
     slug: "giftelle",
