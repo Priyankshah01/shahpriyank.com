@@ -1,5 +1,4 @@
 import Footer from "../../components/Footer";
-import ConnectSection from "../../components/ConnectSection";
 import ProjectIntro from "../../components/ProjectIntro";
 
 export default function FreelanceFlowPage() {
@@ -104,8 +103,6 @@ export default function FreelanceFlowPage() {
           viewCodeUrl="#"
         />
       </main>
-
-      <ConnectSection />
       <Footer />
     </>
   );

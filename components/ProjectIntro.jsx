@@ -1,58 +1,91 @@
-import React, { useMemo } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { motion } from "motion/react";
+import featuredProjects from "../data/featuredProjects";
 
-const fadeUp = {
-  initial: { opacity: 0, y: 28 },
+// Case-study layout in the site's editorial style: mono labels, ruled
+// sections with the label on the left and content on the right, the violet
+// full stop on the project name. Props are unchanged, so every page under
+// pages/projects/ keeps working as-is.
+
+const ease = [0.22, 1, 0.36, 1];
+
+const rise = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-};
+  viewport: { once: true, amount: 0.15 },
+  transition: { duration: 0.7, delay, ease },
+});
 
-const SectionKicker = ({ children }) => (
-  <p className="text-[11px] uppercase tracking-[0.24em] text-white/35 md:text-xs">
-    {children}
-  </p>
-);
-
-const SectionTitle = ({ children, className = "" }) => (
-  <h2
-    className={`text-2xl font-semibold leading-tight tracking-tight text-white md:text-4xl ${className}`}
+const Mono = ({ children, className = "" }) => (
+  <span
+    className={`font-mono text-xs uppercase tracking-[0.14em] ${className}`}
   >
-    {children}
-  </h2>
-);
-
-const BodyText = ({ children, className = "" }) => (
-  <p className={`text-sm leading-relaxed text-white/70 md:text-base ${className}`}>
-    {children}
-  </p>
-);
-
-const MetaCard = ({ label, value }) => {
-  if (!value) return null;
-  const content = Array.isArray(value) ? value.join(" · ") : value;
-
-  return (
-    <motion.div
-      {...fadeUp}
-      whileHover={{ y: -4 }}
-      className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5"
-    >
-      <p className="text-[11px] uppercase tracking-[0.2em] text-white/35">{label}</p>
-      <p className="mt-3 text-sm font-medium leading-relaxed text-white/90 md:text-base">
-        {content}
-      </p>
-    </motion.div>
-  );
-};
-
-const Pill = ({ children }) => (
-  <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-white/75">
     {children}
   </span>
 );
 
+const pad = (n) => String(n).padStart(2, "0");
+
+// "#" or empty means there is no real link yet.
+const realUrl = (url) => (url && url !== "#" ? url : null);
+
+function Section({ id, index, label, title, children }) {
+  return (
+    <section
+      id={id}
+      className="grid scroll-mt-28 gap-6 border-t border-white/10 py-14 md:grid-cols-[14rem_1fr] md:gap-12 md:py-20"
+    >
+      <motion.div {...rise()}>
+        <Mono className="text-white/50">
+          <span className="text-violet-400">{pad(index)}</span> {label}
+        </Mono>
+      </motion.div>
+      <div className="min-w-0">
+        {title && (
+          <motion.h2
+            {...rise(0.05)}
+            className="max-w-3xl text-3xl font-semibold leading-tight tracking-tight md:text-4xl"
+          >
+            {title}
+          </motion.h2>
+        )}
+        <div className={title ? "mt-8" : ""}>{children}</div>
+      </div>
+    </section>
+  );
+}
+
+function Figure({ src, alt, className = "" }) {
+  return (
+    <motion.div
+      {...rise()}
+      className={`overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] ${className}`}
+    >
+      <img src={src} alt={alt} loading="lazy" className="h-full w-full object-cover" />
+    </motion.div>
+  );
+}
+
+function NumberedList({ items }) {
+  return (
+    <ol className="border-t border-white/10">
+      {items.map((item, i) => (
+        <motion.li
+          key={i}
+          {...rise(i * 0.04)}
+          className="grid grid-cols-[2.5rem_1fr] gap-4 border-b border-white/10 py-5 leading-relaxed text-white/80"
+        >
+          <Mono className="pt-1 text-violet-400">{pad(i + 1)}</Mono>
+          <span>{item}</span>
+        </motion.li>
+      ))}
+    </ol>
+  );
+}
+
 const ProjectIntro = ({
+  projectName,
   heroImg,
   outcomeTitle,
   outcomeSubtitle,
@@ -73,458 +106,303 @@ const ProjectIntro = ({
   liveDemoUrl,
   viewCodeUrl,
 }) => {
-  const hasAccessibility = Array.isArray(accessibility) && accessibility.length > 0;
-  const hasProcess = Array.isArray(processSteps) && processSteps.length > 0;
-  const hasFinalImages = Array.isArray(finalImages) && finalImages.length > 0;
-  const hasTakeaways = Array.isArray(takeaways) && takeaways.length > 0;
-  const hasImpact = Array.isArray(impact) && impact.length > 0;
+  const router = useRouter();
+  const slug = router.pathname.split("/").pop();
 
-  const sections = useMemo(() => {
-    const base = [
-      { id: "overview", label: "Overview" },
-      { id: "challenge", label: "Challenge" },
-    ];
-    if (goals) base.push({ id: "goals", label: "Goals" });
-    if (hasProcess) base.push({ id: "process", label: "Process" });
-    if (hasFinalImages) base.push({ id: "outcome", label: "Outcome" });
-    if (hasTakeaways) base.push({ id: "reflection", label: "Reflection" });
-    return base;
-  }, [goals, hasProcess, hasFinalImages, hasTakeaways]);
+  const serviceList = services
+    ? String(services)
+        .split("·")
+        .map((s) => s.trim())
+        .filter(Boolean)
+    : [];
+  const stack = Array.isArray(techStack)
+    ? techStack
+    : techStack
+      ? [techStack]
+      : [];
+  const demo = realUrl(liveDemoUrl);
+  const code = realUrl(viewCodeUrl);
+
+  // Next project, wrapping around the list shown on the projects page.
+  const position = featuredProjects.findIndex((p) => p.slug === slug);
+  const next =
+    featuredProjects.length > 1
+      ? featuredProjects[(position + 1) % featuredProjects.length]
+      : null;
+
+  // Big display name; projectName overrides client.title when that is a description.
+  const name = projectName || client?.title;
+  let n = 0;
 
   return (
-    <section className="relative overflow-hidden bg-black text-white">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[12%] top-32 h-72 w-72 rounded-full bg-white/[0.05] blur-[140px]" />
-        <div className="absolute bottom-10 right-[12%] h-80 w-80 rounded-full bg-white/[0.04] blur-[160px]" />
-      </div>
+    <article className="bg-[#050505] px-6 pb-16 pt-12 text-white md:px-8 md:pt-16">
+      <div className="mx-auto max-w-7xl">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col gap-1.5 border-b border-white/10 pb-5 text-white/55 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <Link href="/projects" className="transition hover:text-white">
+            <Mono>← All projects</Mono>
+          </Link>
+          <Mono>
+            Case study{agency ? ` · ${agency}` : ""}
+            {date ? ` · ${date}` : ""}
+          </Mono>
+        </motion.div>
 
-      <div className="relative mx-auto max-w-[1600px] px-6 pb-24 pt-28 md:px-8 md:pb-32 md:pt-36">
-        <div className="mx-auto max-w-7xl">
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
+        {name && (
+          <motion.p
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-5xl"
+            transition={{ duration: 1, delay: 0.1, ease }}
+            className="mt-10 text-[16vw] font-semibold leading-[0.85] tracking-[-0.05em] lg:text-[10rem]"
           >
-            <SectionKicker>Case Study</SectionKicker>
+            {name}
+            <span className="text-violet-400">.</span>
+          </motion.p>
+        )}
 
-            <h1 className="mt-4 text-4xl font-semibold leading-[0.95] tracking-tight text-white md:text-6xl xl:text-[5.5rem]">
-              {outcomeTitle}
-            </h1>
-
-            {outcomeSubtitle && (
-              <p className="mt-6 max-w-3xl text-base leading-relaxed text-white/65 md:text-xl">
-                {outcomeSubtitle}
-              </p>
-            )}
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.25, ease }}
+          className="mt-10 max-w-4xl text-2xl font-medium leading-snug tracking-tight text-white md:text-4xl"
+        >
+          {outcomeTitle}
+        </motion.h1>
+        {outcomeSubtitle && (
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.7,
-              delay: 0.15,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="mt-10 flex flex-wrap gap-3"
+            transition={{ duration: 0.8, delay: 0.35, ease }}
+            className="mt-6 max-w-3xl text-lg leading-relaxed text-white/65"
           >
-            {services &&
-              String(services)
-                .split("·")
-                .map((item) => item.trim())
-                .filter(Boolean)
-                .map((item) => <Pill key={item}>{item}</Pill>)}
+            {outcomeSubtitle}
+          </motion.p>
+        )}
 
-            {date && <Pill>{date}</Pill>}
-            {agency && <Pill>{agency}</Pill>}
-          </motion.div>
-        </div>
+        {/* Facts */}
+        <motion.dl
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.45, ease }}
+          className="mt-14 grid grid-cols-2 gap-x-8 gap-y-8 border-t border-white/10 pt-8 md:grid-cols-4"
+        >
+          {[
+            ["Services", serviceList.join(", ")],
+            ["Date", date],
+            ["Type", agency],
+            ["Stack", stack.slice(0, 4).join(", ")],
+          ]
+            .filter(([, v]) => v)
+            .map(([label, value]) => (
+              <div key={label}>
+                <dt>
+                  <Mono className="text-white/45">{label}</Mono>
+                </dt>
+                <dd className="mt-2 text-sm leading-relaxed text-white/85">{value}</dd>
+              </div>
+            ))}
+        </motion.dl>
 
         {heroImg && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.98, y: 24 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{
-              duration: 0.85,
-              delay: 0.2,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="mx-auto mt-12 max-w-7xl"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.5, ease }}
+            className="mt-14 overflow-hidden rounded-2xl border border-white/10"
           >
-            <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] shadow-2xl">
-              <motion.img
-                src={heroImg}
-                alt={outcomeTitle || "Project preview"}
-                className="h-full w-full object-cover"
-                whileHover={{ scale: 1.015 }}
-                transition={{ duration: 0.45 }}
-              />
-            </div>
+            <img src={heroImg} alt={outcomeTitle || "Project preview"} className="w-full object-cover" />
           </motion.div>
         )}
 
-        {hasImpact && (
-          <div className="mx-auto mt-8 grid max-w-7xl gap-4 md:grid-cols-3">
-            {impact.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 22 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{
-                  duration: 0.65,
-                  delay: index * 0.08,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                whileHover={{ y: -4 }}
-                className="rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-white/[0.07] to-white/[0.03] p-5"
-              >
-                <p className="text-sm leading-relaxed text-white/80 md:text-base">
-                  {item}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        )}
+        {/* Body */}
+        <div className="mt-20">
+          {impact.length > 0 && (
+            <Section id="impact" index={++n} label="Impact" title="What changed">
+              <NumberedList items={impact} />
+            </Section>
+          )}
 
-        <div className="mx-auto mt-20 grid max-w-7xl gap-12 xl:grid-cols-[220px_minmax(0,1fr)]">
-          <aside className="hidden xl:block">
-            <motion.div
-              {...fadeUp}
-              className="sticky top-28 rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5"
-            >
-              <p className="text-[11px] uppercase tracking-[0.22em] text-white/35">
-                On this page
-              </p>
+          <Section id="overview" index={++n} label="Overview">
+            <div className="grid gap-10 md:grid-cols-2">
+              {targetAudience && (
+                <motion.div {...rise()}>
+                  <Mono className="text-white/45">Audience</Mono>
+                  <p className="mt-3 leading-relaxed text-white/75">{targetAudience}</p>
+                </motion.div>
+              )}
+              {role && (
+                <motion.div {...rise(0.05)}>
+                  <Mono className="text-white/45">My role</Mono>
+                  <p className="mt-3 leading-relaxed text-white/75">{role}</p>
+                </motion.div>
+              )}
+            </div>
+          </Section>
 
-              <nav className="mt-5 space-y-3">
-                {sections.map((section) => (
-                  <a
-                    key={section.id}
-                    href={`#${section.id}`}
-                    className="block text-sm text-white/60 transition hover:text-white"
-                  >
-                    {section.label}
-                  </a>
-                ))}
-              </nav>
-            </motion.div>
-          </aside>
+          {problem && (
+            <Section id="challenge" index={++n} label="Challenge" title="The problem">
+              <motion.p {...rise()} className="max-w-3xl text-lg leading-relaxed text-white/75">
+                {problem}
+              </motion.p>
+              {client?.image && (
+                <Figure src={client.image} alt={name || "Project context"} className="mt-10" />
+              )}
+            </Section>
+          )}
 
-          <div className="space-y-20">
-            <section id="overview" className="scroll-mt-28">
-              <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-                <MetaCard label="Services" value={services} />
-                <MetaCard label="Date" value={date} />
-                <MetaCard label="Agency" value={agency} />
-                <MetaCard label="Client" value={client?.title} />
+          {goals && (
+            <Section id="goals" index={++n} label="Goals" title="Business, design and technical goals">
+              <div className="grid border-t border-white/10 md:grid-cols-3">
+                {[
+                  ["Business", goals.business],
+                  ["Design", goals.design],
+                  ["Technical", goals.tech],
+                ]
+                  .filter(([, v]) => v)
+                  .map(([label, value], i) => (
+                    <motion.div
+                      key={label}
+                      {...rise(i * 0.05)}
+                      className="border-b border-white/10 py-6 md:border-b-0 md:border-r md:px-6 md:first:pl-0 md:last:border-r-0"
+                    >
+                      <Mono className="text-white/45">{label}</Mono>
+                      <p className="mt-3 leading-relaxed text-white/75">{value}</p>
+                    </motion.div>
+                  ))}
               </div>
 
-              <div className="mt-8 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-                <motion.div
-                  {...fadeUp}
-                  whileHover={{ y: -4 }}
-                  className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.03] p-7 md:p-8"
-                >
-                  <SectionKicker>Audience</SectionKicker>
-                  <SectionTitle className="mt-3">
-                    Who this experience was built for
-                  </SectionTitle>
-                  <BodyText className="mt-5">{targetAudience}</BodyText>
-                </motion.div>
-
-                <motion.div
-                  {...fadeUp}
-                  whileHover={{ y: -4 }}
-                  className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7 md:p-8"
-                >
-                  <SectionKicker>Role</SectionKicker>
-                  <SectionTitle className="mt-3">My contribution</SectionTitle>
-                  <BodyText className="mt-5">{role}</BodyText>
-                </motion.div>
-              </div>
-            </section>
-
-            <section id="challenge" className="scroll-mt-28">
-              <motion.div {...fadeUp} className="max-w-4xl">
-                <SectionKicker>Challenge</SectionKicker>
-                <SectionTitle className="mt-3">
-                  The problem behind the experience
-                </SectionTitle>
-                <BodyText className="mt-5">{problem}</BodyText>
-              </motion.div>
-
-              {client?.title && client?.image && (
-                <div className="mt-10 grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
-                  <motion.div {...fadeUp}>
-                    <SectionKicker>Context</SectionKicker>
-                    <SectionTitle className="mt-3">{client.title}</SectionTitle>
-                    <BodyText className="mt-5">
-                      This project centered on translating user needs and product
-                      goals into a cleaner, more thoughtful digital experience.
-                    </BodyText>
-                  </motion.div>
-
-                  <motion.div
-                    {...fadeUp}
-                    className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]"
-                  >
-                    <motion.img
-                      src={client.image}
-                      alt={client.title}
-                      className="w-full object-cover"
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ duration: 0.45 }}
-                    />
-                  </motion.div>
+              {(stack.length > 0 || accessibility.length > 0) && (
+                <div className="mt-12 grid gap-10 md:grid-cols-2">
+                  {stack.length > 0 && (
+                    <motion.div {...rise()}>
+                      <Mono className="text-white/45">Tech stack</Mono>
+                      <ul className="mt-4 flex flex-wrap gap-2">
+                        {stack.map((t) => (
+                          <li
+                            key={t}
+                            className="rounded-full border border-white/10 px-3 py-1 font-mono text-xs text-white/75"
+                          >
+                            {t}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )}
+                  {accessibility.length > 0 && (
+                    <motion.div {...rise(0.05)}>
+                      <Mono className="text-white/45">Accessibility</Mono>
+                      <ul className="mt-4 space-y-3">
+                        {accessibility.map((point, i) => (
+                          <li key={i} className="flex gap-3 leading-relaxed text-white/75">
+                            <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-400" />
+                            {point}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )}
                 </div>
               )}
-            </section>
+            </Section>
+          )}
 
-            {goals && (
-              <section id="goals" className="scroll-mt-28">
-                <motion.div {...fadeUp} className="max-w-4xl">
-                  <SectionKicker>Goals</SectionKicker>
-                  <SectionTitle className="mt-3">
-                    Aligning business, design, and technical outcomes
-                  </SectionTitle>
-                </motion.div>
+          {processSteps.length > 0 && (
+            <Section id="process" index={++n} label="Process" title="From discovery to the final experience">
+              <div className="border-t border-white/10">
+                {processSteps.map((step, i) => (
+                  <motion.div
+                    key={`${step.title}-${i}`}
+                    {...rise()}
+                    className="grid gap-4 border-b border-white/10 py-8 md:grid-cols-[6rem_1fr]"
+                  >
+                    <Mono className="pt-1.5 text-violet-400">Step {pad(i + 1)}</Mono>
+                    <div>
+                      <h3 className="text-xl font-semibold tracking-tight md:text-2xl">{step.title}</h3>
+                      <p className="mt-3 max-w-3xl leading-relaxed text-white/70">{step.description}</p>
+                      {step.image && <Figure src={step.image} alt={step.title} className="mt-6" />}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </Section>
+          )}
 
-                <div className="mt-8 grid gap-5 lg:grid-cols-3">
-                  {goals.business && (
-                    <motion.div
-                      {...fadeUp}
-                      whileHover={{ y: -4 }}
-                      className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7"
-                    >
-                      <SectionKicker>Business</SectionKicker>
-                      <BodyText className="mt-4">{goals.business}</BodyText>
-                    </motion.div>
-                  )}
+          {finalImages.length > 0 && (
+            <Section id="outcome" index={++n} label="Outcome" title="Final interface">
+              <div className="grid gap-4 sm:grid-cols-2">
+                {finalImages.map((img, i) => (
+                  <Figure
+                    key={`${img}-${i}`}
+                    src={img}
+                    alt={`${name || "Project"}: final screen ${i + 1}`}
+                    className={i === 0 ? "sm:col-span-2" : ""}
+                  />
+                ))}
+              </div>
+            </Section>
+          )}
 
-                  {goals.design && (
-                    <motion.div
-                      {...fadeUp}
-                      whileHover={{ y: -4 }}
-                      className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7"
-                    >
-                      <SectionKicker>Design</SectionKicker>
-                      <BodyText className="mt-4">{goals.design}</BodyText>
-                    </motion.div>
-                  )}
+          {takeaways.length > 0 && (
+            <Section id="reflection" index={++n} label="Reflection" title="What this project reinforced">
+              <NumberedList items={takeaways} />
+            </Section>
+          )}
 
-                  {goals.tech && (
-                    <motion.div
-                      {...fadeUp}
-                      whileHover={{ y: -4 }}
-                      className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7"
-                    >
-                      <SectionKicker>Technical</SectionKicker>
-                      <BodyText className="mt-4">{goals.tech}</BodyText>
-                    </motion.div>
-                  )}
-                </div>
-
-                {(techStack || hasAccessibility) && (
-                  <div className="mt-5 grid gap-5 lg:grid-cols-2">
-                    {techStack && (
-                      <motion.div
-                        {...fadeUp}
-                        whileHover={{ y: -4 }}
-                        className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7"
-                      >
-                        <SectionKicker>Tech Stack</SectionKicker>
-                        <BodyText className="mt-4">
-                          {Array.isArray(techStack)
-                            ? techStack.join(" · ")
-                            : techStack}
-                        </BodyText>
-                      </motion.div>
-                    )}
-
-                    {hasAccessibility && (
-                      <motion.div
-                        {...fadeUp}
-                        whileHover={{ y: -4 }}
-                        className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7"
-                      >
-                        <SectionKicker>Accessibility</SectionKicker>
-                        <ul className="mt-4 space-y-3">
-                          {accessibility.map((point, index) => (
-                            <li
-                              key={index}
-                              className="text-sm leading-relaxed text-white/70 md:text-base"
-                            >
-                              • {point}
-                            </li>
-                          ))}
-                        </ul>
-                      </motion.div>
-                    )}
-                  </div>
+          {(demo || code) && (
+            <Section id="links" index={++n} label="Links">
+              <div className="flex flex-wrap gap-8">
+                {demo && (
+                  <a
+                    href={demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-2 border-b border-white/25 pb-1 transition hover:border-violet-400"
+                  >
+                    <Mono className="text-white">Live demo</Mono>
+                    <span className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+                  </a>
                 )}
-              </section>
-            )}
-
-            {hasProcess && (
-              <section id="process" className="scroll-mt-28">
-                <motion.div {...fadeUp} className="max-w-4xl">
-                  <SectionKicker>Process</SectionKicker>
-                  <SectionTitle className="mt-3">
-                    From discovery to a refined final experience
-                  </SectionTitle>
-                  <BodyText className="mt-5">
-                    A structured process focused on clarifying user needs,
-                    reducing friction, and translating strategic thinking into
-                    polished interface decisions.
-                  </BodyText>
-                </motion.div>
-
-                <div className="mt-10 space-y-8">
-                  {processSteps.map((step, index) => (
-                    <motion.article
-                      key={`${step.title}-${index}`}
-                      initial={{ opacity: 0, y: 28 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, amount: 0.2 }}
-                      transition={{
-                        duration: 0.7,
-                        delay: index * 0.06,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
-                      whileHover={{ y: -3 }}
-                      className="grid gap-6 rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 md:p-8 lg:grid-cols-[120px_minmax(0,1fr)]"
-                    >
-                      <div className="flex h-fit w-fit items-center justify-center rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-white/75">
-                        Step {index + 1}
-                      </div>
-
-                      <div>
-                        <h3 className="text-xl font-semibold tracking-tight text-white md:text-2xl">
-                          {step.title}
-                        </h3>
-
-                        <BodyText className="mt-4">{step.description}</BodyText>
-
-                        {step.image && (
-                          <div className="mt-6 overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03]">
-                            <motion.img
-                              src={step.image}
-                              alt={step.title}
-                              className="w-full object-cover"
-                              whileHover={{ scale: 1.02 }}
-                              transition={{ duration: 0.45 }}
-                            />
-                          </div>
-                        )}
-                      </div>
-                    </motion.article>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {hasFinalImages && (
-              <section id="outcome" className="scroll-mt-28">
-                <motion.div {...fadeUp} className="max-w-4xl">
-                  <SectionKicker>Outcome</SectionKicker>
-                  <SectionTitle className="mt-3">
-                    Final interface and visual direction
-                  </SectionTitle>
-                </motion.div>
-
-                <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                  {finalImages.map((img, index) => (
-                    <motion.div
-                      key={`${img}-${index}`}
-                      initial={{ opacity: 0, y: 22 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, amount: 0.2 }}
-                      transition={{
-                        duration: 0.65,
-                        delay: index * 0.07,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
-                      className={`overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03] ${
-                        index === 0 ? "sm:col-span-2" : ""
-                      }`}
-                    >
-                      <motion.img
-                        src={img}
-                        alt={`Final result ${index + 1}`}
-                        className="h-full w-full object-cover"
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ duration: 0.45 }}
-                      />
-                    </motion.div>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {hasTakeaways && (
-              <section id="reflection" className="scroll-mt-28">
-                <motion.div
-                  {...fadeUp}
-                  whileHover={{ y: -3 }}
-                  className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.07] to-white/[0.02] p-7 md:p-8"
-                >
-                  <SectionKicker>Reflection</SectionKicker>
-                  <SectionTitle className="mt-3">
-                    What this project reinforced
-                  </SectionTitle>
-
-                  <ul className="mt-6 space-y-4">
-                    {takeaways.map((point, index) => (
-                      <li
-                        key={index}
-                        className="text-sm leading-relaxed text-white/75 md:text-base"
-                      >
-                        • {point}
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              </section>
-            )}
-
-            {(liveDemoUrl || viewCodeUrl) && (
-              <motion.section
-                {...fadeUp}
-                className="border-t border-white/10 pt-10"
-              >
-                <div className="flex flex-wrap gap-4">
-                  {liveDemoUrl && (
-                    <motion.a
-                      href={liveDemoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ y: -3 }}
-                      className="rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition hover:bg-white/90"
-                    >
-                      Live Demo
-                    </motion.a>
-                  )}
-
-                  {viewCodeUrl && (
-                    <motion.a
-                      href={viewCodeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ y: -3 }}
-                      className="rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-medium text-white transition hover:bg-white hover:text-black"
-                    >
-                      View Code
-                    </motion.a>
-                  )}
-                </div>
-              </motion.section>
-            )}
-          </div>
+                {code && (
+                  <a
+                    href={code}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-2 border-b border-white/25 pb-1 transition hover:border-violet-400"
+                  >
+                    <Mono className="text-white">View code</Mono>
+                    <span className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+                  </a>
+                )}
+              </div>
+            </Section>
+          )}
         </div>
+
+        {/* Next project */}
+        {next && next.slug !== slug && (
+          <Link
+            href={`/projects/${next.slug}`}
+            className="group mt-4 flex flex-col gap-4 border-t border-white/10 pt-10 sm:flex-row sm:items-end sm:justify-between"
+          >
+            <div>
+              <Mono className="text-white/45">Next project</Mono>
+              <p className="mt-3 text-5xl font-semibold tracking-tight transition group-hover:text-violet-300 md:text-7xl">
+                {next.title}
+                <span className="text-violet-400">.</span>
+              </p>
+            </div>
+            <span className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-white/15 text-lg transition group-hover:border-violet-400 group-hover:bg-violet-400 group-hover:text-black">
+              →
+            </span>
+          </Link>
+        )}
       </div>
-    </section>
+    </article>
   );
 };
 

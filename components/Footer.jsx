@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import ConnectModal from "./ConnectModal";
 import { motion } from "motion/react";
 import {
   FaEnvelope,
@@ -9,6 +10,7 @@ import {
 
 function Footer() {
   const currentYear = new Date().getFullYear();
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const socialLinks = [
     {
@@ -93,6 +95,16 @@ function Footer() {
               >
                 priyankshah0101@gmail.com
               </motion.a>
+
+              <div className="mt-8">
+                <button
+                  type="button"
+                  onClick={() => setIsFormOpen(true)}
+                  className="inline-flex h-24 w-24 items-center justify-center rounded-full bg-violet-400 text-center text-xs font-semibold text-black transition hover:scale-105 md:h-28 md:w-28 md:text-sm"
+                >
+                  Send a message
+                </button>
+              </div>
             </motion.div>
 
             <motion.div
@@ -154,6 +166,7 @@ function Footer() {
           </motion.div>
         </motion.div>
       </div>
+      <ConnectModal isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
     </footer>
   );
 }
