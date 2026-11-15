@@ -1,26 +1,20 @@
-import Navbar from '../components/Navbar';
-import Hero from '../components/Hero';
-import About from '../components/About'
-import Projects from '../components/Projects'
-import ConnectSection from "../components/ConnectSection";
-import Footer from '../components/Footer';
-import Reveal from '../components/Reveal';
+import Hero from "../components/Hero";
+import FeaturedWork from "../components/FeaturedWork";
+import HowIWork from "../components/HowIWork";
+import Playground from "../components/Playground";
+import Experience from "../components/Experience";
+import Footer from "../components/Footer";
 
+// Navbar is rendered once in pages/_app.js.
 export default function HomePage() {
   return (
-    <main>
-      <Navbar />
-       <Hero />
-      <Reveal delay={0.05}>
-        <Projects />
-      </Reveal>
-      <Reveal delay={0.08}>
-        <About />
-      </Reveal>
-      <Reveal delay={0.1}>
-        <ConnectSection />
-      </Reveal>
+    <>
+      <Hero />
+      <FeaturedWork />
+      <HowIWork />
+      <Playground />
+      <Experience />
       <Footer />
-    </main>
-  )
+    </>
+  );
 }

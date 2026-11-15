@@ -38,7 +38,7 @@ function Footer() {
   ];
 
   return (
-    <footer className="relative overflow-hidden bg-black px-6 pb-10 pt-24 text-white md:px-8 md:pt-32">
+    <footer id="contact" className="relative overflow-hidden bg-black px-6 pb-10 pt-24 text-white md:px-8 md:pt-32">
       <div className="absolute left-1/2 top-1/3 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-white/5 blur-[160px]" />
 
       <div className="relative mx-auto max-w-7xl">
@@ -60,7 +60,7 @@ function Footer() {
             }}
             className="text-sm uppercase tracking-[0.24em] text-white/35"
           >
-            Final Frame
+            Contact
           </motion.p>
 
           <div className="mt-8 grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
@@ -76,7 +76,7 @@ function Footer() {
             >
               <h2 className="max-w-5xl text-5xl font-semibold leading-[0.92] tracking-tight md:text-7xl xl:text-[7rem]">
                 Let’s create something{" "}
-                <span className="bg-gradient-to-t from-black-00 to-purple-700 bg-clip-text text-transparent">worth remembering.</span>
+                <span className="text-violet-400">worth remembering.</span>
               </h2>
 
               <motion.a
@@ -107,9 +107,8 @@ function Footer() {
               className="lg:justify-self-end"
             >
               <p className="max-w-sm text-sm leading-relaxed text-white/55 md:text-base">
-                UI/UX Designer and Frontend Developer based in Toronto, focused
-                on thoughtful product experiences, modern interfaces, and
-                digital craft.
+                Product designer and design engineer based in Toronto. Open to
+                senior product design roles: full-time, contract or remote.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
