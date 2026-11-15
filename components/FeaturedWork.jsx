@@ -28,9 +28,7 @@ function WorkVisual({ item }) {
           ))}
         </ul>
       </div>
-      <p className="relative text-xs">
-        <Todo value={{ todo: "Swap this panel for blurred or redrawn screens" }} />
-      </p>
+      {/* Replace this panel with blurred or redrawn screens when available. */}
     </div>
   );
 }
@@ -81,24 +79,34 @@ export default function FeaturedWork() {
                     {item.summary}
                   </p>
 
-                  <dl className="mt-8 grid gap-5 border-t border-white/10 pt-6 text-sm">
-                    <div>
-                      <dt className="mb-1.5 uppercase tracking-[0.16em] text-white/45">
-                        Result
-                      </dt>
-                      <dd className="text-base leading-relaxed text-white/90">
-                        <Todo value={item.result} />
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="mb-1.5 uppercase tracking-[0.16em] text-white/45">
-                        Key decision
-                      </dt>
-                      <dd className="text-base leading-relaxed text-white/90">
-                        <Todo value={item.decision} />
-                      </dd>
-                    </div>
-                  </dl>
+                  <ul className="mt-8 space-y-3 border-t border-white/10 pt-6 text-sm leading-relaxed text-white/80">
+                    {item.highlights.map((h) => (
+                      <li key={h} className="flex gap-3">
+                        <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-400" />
+                        <span>{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {(item.result || item.decision) && (
+                    <dl className="mt-6 grid gap-5 text-sm">
+                      {[
+                        ["Result", item.result],
+                        ["Key decision", item.decision],
+                      ]
+                        .filter(([, value]) => value)
+                        .map(([label, value]) => (
+                          <div key={label}>
+                            <dt className="mb-1.5 uppercase tracking-[0.16em] text-white/45">
+                              {label}
+                            </dt>
+                            <dd className="text-base leading-relaxed text-white/90">
+                              <Todo value={value} />
+                            </dd>
+                          </div>
+                        ))}
+                    </dl>
+                  )}
 
                   {item.href ? (
                     <Link

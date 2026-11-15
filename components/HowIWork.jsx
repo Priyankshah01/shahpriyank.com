@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-import Todo from "./Todo";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -17,12 +16,10 @@ const pillars = [
     evidence: "Walmart: one design system across 40+ screens",
   },
   {
-    label: "AI",
-    title: { todo: "How AI fits your process" },
-    body: {
-      todo: "1–2 sentences on how you actually use AI, e.g. synthesising research, prototyping in code, or designing AI features (trust, explainability, error recovery)",
-    },
-    evidence: { todo: "A concrete example or project" },
+    label: "Bridge",
+    title: "Closing the gap between design and build",
+    body: "I review what gets built against the design with developers and QA, and fix the differences together, so what ships is what was designed.",
+    evidence: "Walmart: design QA alongside backend and QA teams",
   },
 ];
 
@@ -41,7 +38,7 @@ export default function HowIWork() {
             How I work
           </p>
           <h2 className="text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
-            Design, code and AI in one workflow.
+            Design and code in one workflow.
           </h2>
         </motion.div>
 
@@ -59,13 +56,13 @@ export default function HowIWork() {
                 0{i + 1} · {p.label}
               </p>
               <h3 className="mt-4 text-xl font-semibold leading-snug">
-                <Todo value={p.title} />
+                {p.title}
               </h3>
               <p className="mt-4 flex-1 text-sm leading-relaxed text-white/70">
-                <Todo value={p.body} />
+                {p.body}
               </p>
               <p className="mt-6 border-t border-white/10 pt-4 text-sm text-white/55">
-                <Todo value={p.evidence} />
+                {p.evidence}
               </p>
             </motion.div>
           ))}
