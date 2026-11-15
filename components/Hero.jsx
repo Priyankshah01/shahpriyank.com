@@ -1,105 +1,89 @@
-import React, { useState } from "react";
+// Editorial hero: oversized name set full-width, a calm intro in two
+// columns, and a slow-scrolling strip of focus areas. No WebGL, no photo card.
 import { motion } from "motion/react";
-import DarkVeil from "./DarkVeil";
-import ConnectModal from "./ConnectModal";
 
 const ease = [0.22, 1, 0.36, 1];
 
-const fadeUp = (delay) => ({
-  initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.8, delay, ease },
-});
+const strip = [
+  "Product design",
+  "Design systems",
+  "React & Next.js",
+  "Usability testing",
+  "Accessibility",
+  "Commerce UX",
+  "Healthcare UX",
+  "Prototyping",
+];
 
-const Hero = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
+export default function Hero() {
+  const items = [...strip, ...strip];
   return (
-    <>
-      <section className="relative overflow-hidden bg-black text-white">
-        <div className="absolute inset-0 opacity-50">
-          <DarkVeil />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-[#050505]" />
+    <section className="relative overflow-hidden bg-[#050505] text-white">
+      <div className="mx-auto flex min-h-[92vh] max-w-7xl flex-col justify-center px-6 pb-14 pt-32 md:px-8">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col gap-1.5 border-b border-white/10 pb-5 sm:flex-row sm:items-center sm:justify-between font-mono text-xs uppercase tracking-[0.12em] text-white/55"
+        >
+          <span>Product Designer · Design Engineer</span>
+          <span>Toronto, Canada</span>
+        </motion.div>
 
-        <div className="relative z-10 mx-auto flex min-h-[92vh] max-w-7xl flex-col justify-center px-6 pb-20 pt-36 md:px-8">
-          <motion.div {...fadeUp(0.1)} className="flex items-center gap-4">
-            <img
-              src="/images/Me.jpg"
-              alt="Priyank Shah"
-              className="h-12 w-12 rounded-full object-cover ring-1 ring-white/20"
-            />
-            <div className="text-sm leading-tight">
-              <p className="font-medium text-white">Priyank Shah</p>
-              <p className="text-white/55">
-                Product Designer · Design Engineer · Toronto
-              </p>
-            </div>
-          </motion.div>
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.1, ease }}
+          className="mt-10 text-[17vw] font-semibold leading-[0.85] tracking-[-0.05em] lg:text-[13.5rem]"
+        >
+          Priyank<span className="text-violet-400">.</span>
+        </motion.h1>
 
-          <motion.h1
-            {...fadeUp(0.2)}
-            className="mt-10 max-w-5xl text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl xl:text-[5.75rem]"
-          >
-            I design products{" "}
-            <span className="text-violet-400">and ship them.</span>
-          </motion.h1>
-
+        <div className="mt-12 grid gap-10 md:grid-cols-[auto_1fr_auto] md:items-end">
+          <motion.img
+            src="/images/Me.jpg"
+            alt="Priyank Shah"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease }}
+            className="h-24 w-20 rounded-2xl object-cover grayscale md:h-28 md:w-24 transition hover:grayscale-0"
+          />
           <motion.p
-            {...fadeUp(0.35)}
-            className="mt-8 max-w-2xl text-lg leading-relaxed text-white/70 md:text-xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease }}
+            className="max-w-2xl text-xl leading-relaxed text-white/75 md:text-2xl"
           >
-            Five years designing commerce, healthcare and SaaS products, taking
-            them from research and user flows all the way to production React.
-            One person across the design–engineering gap, so less gets lost in
-            handoff.
+            I design products and ship them. Five years across commerce at{" "}
+            <span className="text-white">Walmart</span> and healthcare at{" "}
+            <span className="text-white">AlayaCare</span>, from research to
+            production React.
           </motion.p>
-
-          <motion.div {...fadeUp(0.5)} className="mt-10 flex flex-wrap gap-4">
-            <a
-              href="#work"
-              className="rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition hover:bg-white/90"
-            >
-              See selected work
-            </a>
-            <button
-              type="button"
-              onClick={() => setIsModalOpen(true)}
-              className="rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-medium text-white backdrop-blur-md transition hover:bg-white/10"
-            >
-              Get in touch
-            </button>
-          </motion.div>
-
-          <motion.div
-            {...fadeUp(0.65)}
-            className="mt-20 grid gap-6 border-t border-white/10 pt-8 text-sm sm:grid-cols-3"
+          <motion.a
+            href="#work"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5, ease }}
+            className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-violet-400 text-center text-xs font-semibold md:h-28 md:w-28 md:text-sm text-black transition hover:scale-105"
           >
-            <div>
-              <p className="mb-2 text-white/45">Now</p>
-              <p className="font-medium text-white/90">
-                Walmart: commerce UX + React
-              </p>
-            </div>
-            <div>
-              <p className="mb-2 text-white/45">Before</p>
-              <p className="font-medium text-white/90">
-                AlayaCare: healthcare booking
-              </p>
-            </div>
-            <div>
-              <p className="mb-2 text-white/45">Earlier</p>
-              <p className="font-medium text-white/90">
-                WebClues Infotech · JVS Technology
-              </p>
-            </div>
-          </motion.div>
+            See work ↓
+          </motion.a>
         </div>
-      </section>
+      </div>
 
-      <ConnectModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-    </>
+      <div className="border-y border-white/10 py-5">
+        <motion.div
+          className="flex w-max gap-12 whitespace-nowrap font-mono text-xs uppercase tracking-[0.15em] text-white/45"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 40, ease: "linear", repeat: Infinity }}
+        >
+          {items.map((t, i) => (
+            <span key={i} className="flex items-center gap-12">
+              {t} <span className="text-violet-400">✦</span>
+            </span>
+          ))}
+        </motion.div>
+      </div>
+    </section>
   );
-};
-
-export default Hero;
+}

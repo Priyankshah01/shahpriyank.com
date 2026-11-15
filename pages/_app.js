@@ -1,14 +1,16 @@
 import "@/styles/globals.css";
-import "../styles/DarkVeil.css";
 import "../styles/ProfileCard.css";
 import { Toaster } from "react-hot-toast";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import { AnimatePresence, motion } from "motion/react";
+import { geistSans, geistMono } from "../lib/fonts";
 
 export default function App({ Component, pageProps, router }) {
   return (
-    <>
+    <div
+      className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
+    >
       <Head>
         <title>Priyank Shah | Product Designer & Design Engineer</title>
         <meta
@@ -34,6 +36,6 @@ export default function App({ Component, pageProps, router }) {
           <Component {...pageProps} />
         </motion.main>
       </AnimatePresence>
-    </>
+    </div>
   );
 }
