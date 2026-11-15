@@ -4,9 +4,10 @@ import { useRouter } from "next/router";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Projects", href: "/projects" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Work", href: "/#work" },
+  { label: "Experience", href: "/#experience" },
+  { label: "All Projects", href: "/projects" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export default function Navbar() {
@@ -40,19 +41,23 @@ export default function Navbar() {
 
   const isActive = (href) => {
     if (href === "/") return router.pathname === "/";
+    if (href.startsWith("/#")) return false;
     return router.pathname.startsWith(href);
   };
 
-  const isDarkModeNavbar = isHomePage && !isScrolled;
+  // The whole site is dark, so the navbar always uses light-on-dark styling.
+  // It only gains a solid background once the page scrolls (or off the home page).
+  const isDarkModeNavbar = true;
+  const isTransparent = isHomePage && !isScrolled;
 
   const textClass = isDarkModeNavbar ? "text-white" : "text-white";
   const mutedTextClass = isDarkModeNavbar
     ? "text-white/60 hover:text-white"
     : "text-white/60 hover:text-white";
   const underlineClass = isDarkModeNavbar ? "bg-white" : "bg-white";
-  const headerClass = isDarkModeNavbar
+  const headerClass = isTransparent
     ? "bg-transparent"
-    : "border-b border-white/10 bg-gradient-to-t from-black-00 to-purple-700 bg-clip-text text-transparent backdrop-blur-xl";
+    : "border-b border-white/10 bg-black/70 backdrop-blur-xl";
 
   const logoHoverClass = isDarkModeNavbar
     ? "hover:text-white/75"
@@ -183,15 +188,17 @@ export default function Navbar() {
             );
           })}
 
-          <Link
-            href="/resume"
+          <a
+            href="/resume/Priyank_Shah_Resume_2026.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className={`mt-6 inline-flex w-fit items-center justify-center rounded-full px-5 py-3 text-sm font-medium transition duration-300 ease-out ${isDarkModeNavbar
                 ? "bg-white text-black hover:-translate-y-0.5 hover:bg-white/90"
                 : "bg-black text-white hover:-translate-y-0.5 hover:opacity-90"
               }`}
           >
             View Resume
-          </Link>
+          </a>
         </nav>
       </div>
     </header>
