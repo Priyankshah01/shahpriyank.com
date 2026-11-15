@@ -2,9 +2,10 @@ import Footer from "../../components/Footer";
 import ProjectIntro from "../../components/ProjectIntro";
 
 // Content sourced from the FreelanceFlow UX case study file in Figma
-// (Context, Requirements Doc, User Flows & Stories, Wireframes, Design System,
-// Hi-Fi pages). The Usability Testing page in that file holds SAMPLE data, so
-// no test results are shown here until real results are available.
+// (Context, Requirements Doc, User Flows & Stories, Wireframes, Usability
+// Testing, Design System and Hi-Fi pages). The usability results are real
+// session results, confirmed by Priyank (the "SAMPLE DATA" labels in the
+// Figma file are out of date).
 
 export default function FreelanceFlowPage() {
   return (
@@ -26,6 +27,7 @@ export default function FreelanceFlowPage() {
             "Framed the problem around four pain points (trust, scattered communication, late payments and poor project visibility) and three role-based personas.",
             "Turned the requirements into a prioritised MVP: 10 must-have features scoped with MoSCoW and written as user stories with acceptance criteria, estimated at about 126 hours of build.",
             "Designed role-aware information architecture and four end-to-end user flows for freelancers, clients and admins, then took them through wireframes, a component system and high-fidelity UI to a React build.",
+            "Tested the prototype with 5 participants: 84% task completion and a SUS score of 76 (above the 68 average), then turned all 9 findings into design changes.",
           ]}
 
           client={{
@@ -96,11 +98,91 @@ export default function FreelanceFlowPage() {
               image: "/images/freelancceflow_Signin.jpg",
             },
             {
-              title: "Usability test plan",
+              title: "Usability testing & iteration",
               description:
-                "I planned moderated, task-based testing of the prototype around the core hire-to-pay tasks: sign up and build a profile, find a job and submit a proposal, post a job, review proposals and hire, and pay an invoice. Success was defined as at least 80% task completion and a System Usability Scale score of 68 or above, with no critical issues left unaddressed.",
+                "I ran moderated, task-based sessions on the prototype with five participants across both sides of the marketplace, covering the core hire-to-pay tasks. Posting a job was the clear problem: participants weren't sure whether the budget was fixed or hourly, and two abandoned at that step. Every finding became a design change, set out in the testing section below.",
             },
           ]}
+
+          testing={{
+            setup: [
+              ["Goal", "Validate that freelancers and clients can complete the core hire-to-pay tasks without help, and find where they hesitate."],
+              ["Method", "Moderated remote sessions on Zoom with the Figma prototype, think-aloud, about 30 minutes each, followed by a System Usability Scale (SUS) questionnaire."],
+              ["Participants", "5 participants: 3 freelancers (development and design) and 2 small-business clients, with mixed comfort with technology, aged 22 to 45."],
+              ["Success criteria", "At least 80% task completion, a SUS score of 68 or above (the industry average), and no critical issues left unaddressed."],
+            ],
+            stats: [
+              ["5", "participants across both sides of the marketplace"],
+              ["84%", "average task completion across 5 tasks"],
+              ["76", "SUS score, grade B (“good”)"],
+              ["9", "findings, each turned into a design change"],
+            ],
+            successTarget: 80,
+            tasks: [
+              { id: "T1", name: "Sign up & build a profile", success: 100, time: "2m 30s avg" },
+              { id: "T2", name: "Find a job & submit a proposal", success: 80, time: "2m 50s avg" },
+              { id: "T3", name: "Post a job", success: 60, time: "4m 10s avg vs 3m target" },
+              { id: "T4", name: "Review proposals & hire", success: 100, time: "1m 50s avg" },
+              { id: "T5", name: "Pay an invoice", success: 80, time: "1m 05s avg" },
+            ],
+            findings: [
+              {
+                finding: "Budget type (fixed vs hourly) unclear in Post a Job",
+                evidence: "3 of 5 hesitated; 2 abandoned at step 4",
+                severity: "High",
+                change: "Segmented control with helper copy and example totals",
+              },
+              {
+                finding: "Role choice at sign-up easy to miss",
+                evidence: "2 of 5 signed up with the default role",
+                severity: "High",
+                change: "Role cards required with no default; selected state uses a brand tint and check",
+              },
+              {
+                finding: "Proposal status not visible after submitting",
+                evidence: "“Did it send?” (participant 2)",
+                severity: "Medium",
+                change: "Success alert, then redirect to My Proposals on the Pending tab",
+              },
+              {
+                finding: "Escrow and payment safety not explained",
+                evidence: "Clients asked when money is released",
+                severity: "Medium",
+                change: "Info alert on the payment screen: “Funds held in escrow until you approve”",
+              },
+              {
+                finding: "Job filters reset on back navigation",
+                evidence: "Repeated filtering during T2",
+                severity: "Medium",
+                change: "Filters persisted in the URL query parameters",
+              },
+              {
+                finding: "Low-contrast placeholder text in inputs",
+                evidence: "Raised by a low-vision participant",
+                severity: "Medium",
+                change: "Placeholder uses the muted text colour; labels always visible above fields",
+              },
+              {
+                finding: "Icon-only actions in the dashboard",
+                evidence: "Meaning unclear to 2 participants",
+                severity: "Low",
+                change: "Text labels and aria-labels added",
+              },
+              {
+                finding: "Skill tags look clickable on job cards",
+                evidence: "Participants tapped tags expecting a filter",
+                severity: "Low",
+                change: "Tags on the job detail page now filter Browse Jobs",
+              },
+              {
+                finding: "“Hours worked” card ambiguous",
+                evidence: "This week or all time?",
+                severity: "Low",
+                change: "Delta line states the period: “this month”",
+              },
+            ],
+            next: "Re-test posting a job (T3) and sign-up (T1) with 3 new participants after these changes, targeting at least 90% task success and a SUS score of 80.",
+          }}
 
           finalImages={[
             "/images/freelanceflow_Client-Post-a-Job-Step1.jpg",
@@ -112,6 +194,7 @@ export default function FreelanceFlowPage() {
             "In a two-sided marketplace, trust is the product: verified profiles, escrow-style payment and visible progress matter as much as any single screen.",
             "Prioritising with MoSCoW kept the MVP focused on one complete hire-to-pay loop instead of many half-finished features.",
             "Role-aware navigation let three very different users share one product without any of them seeing clutter meant for someone else.",
+            "Small decisions carry big weight: one unclear choice, a fixed or hourly budget, caused both abandoned attempts at posting a job.",
             "Owning both the design and the build meant the component system in Figma and in React stayed the same system.",
           ]}
 
