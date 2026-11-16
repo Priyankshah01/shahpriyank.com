@@ -294,7 +294,9 @@ const ProjectIntro = ({
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.1, ease }}
-            className="mt-10 text-[16vw] font-semibold leading-[0.85] tracking-[-0.05em] lg:text-[10rem]"
+            className={`mt-10 font-semibold leading-[0.85] tracking-[-0.05em] lg:text-[10rem] ${
+              name.length > 10 ? "text-[11vw]" : "text-[16vw]"
+            }`}
           >
             {name}
             <span className="text-violet-400">.</span>

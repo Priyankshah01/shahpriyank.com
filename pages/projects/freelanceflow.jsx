@@ -1,11 +1,144 @@
 import Footer from "../../components/Footer";
 import ProjectIntro from "../../components/ProjectIntro";
+import {
+  BeforeAfter,
+  FindingsExplorer,
+  FlowExplorer,
+} from "../../components/case-study/Interactive";
 
 // Content sourced from the FreelanceFlow UX case study file in Figma
 // (Context, Requirements Doc, User Flows & Stories, Wireframes, Usability
 // Testing, Design System and Hi-Fi pages). The usability results are real
 // session results, confirmed by Priyank (the "SAMPLE DATA" labels in the
 // Figma file are out of date).
+
+const img = (name) => `/images/freelanceflow/${name}.webp`;
+
+const Label = ({ children }) => (
+  <p className="mb-6 font-mono text-xs uppercase tracking-[0.14em] text-white/45">{children}</p>
+);
+
+// The 9 usability findings and the design change each one led to.
+const findings = [
+  {
+    finding: "Budget type (fixed vs hourly) unclear in Post a Job",
+    evidence: "3 of 5 hesitated; 2 abandoned at step 4",
+    severity: "High",
+    change: "Segmented control with helper copy and example totals",
+  },
+  {
+    finding: "Role choice at sign-up easy to miss",
+    evidence: "2 of 5 signed up with the default role",
+    severity: "High",
+    change: "Role cards required with no default; selected state uses a brand tint and check",
+  },
+  {
+    finding: "Proposal status not visible after submitting",
+    evidence: "“Did it send?” (participant 2)",
+    severity: "Medium",
+    change: "Success alert, then redirect to My Proposals on the Pending tab",
+  },
+  {
+    finding: "Escrow and payment safety not explained",
+    evidence: "Clients asked when money is released",
+    severity: "Medium",
+    change: "Info alert on the payment screen: “Funds held in escrow until you approve”",
+  },
+  {
+    finding: "Job filters reset on back navigation",
+    evidence: "Repeated filtering during T2",
+    severity: "Medium",
+    change: "Filters persisted in the URL query parameters",
+  },
+  {
+    finding: "Low-contrast placeholder text in inputs",
+    evidence: "Raised by a low-vision participant",
+    severity: "Medium",
+    change: "Placeholder uses the muted text colour; labels always visible above fields",
+  },
+  {
+    finding: "Icon-only actions in the dashboard",
+    evidence: "Meaning unclear to 2 participants",
+    severity: "Low",
+    change: "Text labels and aria-labels added",
+  },
+  {
+    finding: "Skill tags look clickable on job cards",
+    evidence: "Participants tapped tags expecting a filter",
+    severity: "Low",
+    change: "Tags on the job detail page now filter Browse Jobs",
+  },
+  {
+    finding: "“Hours worked” card ambiguous",
+    evidence: "This week or all time?",
+    severity: "Low",
+    change: "Delta line states the period: “this month”",
+  },
+  ];
+
+// Wireframe → hi-fi pairs exported from the Figma file (pages 04 and 07).
+const comparisons = [
+  {
+  before: img("wire-signup"),
+  after: img("signup"),
+  alt: "Sign up",
+  ratio: "1440 / 1180",
+  caption: "Sign up: the role choice moved from two plain boxes to selectable cards with an icon and a one-line description of what each role does, so people choose deliberately instead of skimming past it.",
+  },
+  {
+  before: img("wire-post-job"),
+  after: img("post-job"),
+  alt: "Post a job, step 1",
+  caption: "Post a job: the wizard steps became the Stepper Step component, and fields gained placeholder examples and character guidance so clients know how much to write.",
+  },
+  {
+  before: img("wire-browse"),
+  after: img("browse"),
+  alt: "Browse jobs",
+  caption: "Browse jobs: a sidebar of checkbox filters became a compact filter panel with budget, experience and sort, and the job list became the Job Card component with budget, timeline and skills at a glance.",
+  },
+  {
+  before: img("wire-dashboard"),
+  after: img("dashboard"),
+  alt: "Client dashboard",
+  caption: "Client dashboard: plain number boxes became Stat Cards with icons and a monthly trend line, and active projects gained status and progress so clients can see where work stands.",
+  },
+];
+
+const flows = [
+  {
+    name: "Client · post a job",
+    desktop: true,
+    ratio: "3 / 2",
+    description: "A five-step wizard turns a long form into manageable decisions: details, skills, budget, timeline, then review.",
+    screens: [
+      { src: img("post-job"), label: "Step 1 · Project details" },
+      { src: img("budget-fixed"), label: "Step 3 · Budget, fixed" },
+      { src: img("budget-hourly"), label: "Step 3 · Budget, hourly" },
+      { src: img("timeline"), label: "Step 4 · Timeline" },
+    ],
+  },
+  {
+    name: "Freelancer · find work",
+    desktop: true,
+    ratio: "3 / 2",
+    description: "Freelancers filter jobs by budget, experience and size, then apply with a cover letter, bid and timeline without leaving the listing.",
+    screens: [
+      { src: img("browse"), label: "Browse jobs" },
+      { src: img("apply"), label: "Apply for a job" },
+    ],
+  },
+  {
+    name: "Onboarding & dashboard",
+    desktop: true,
+    ratio: "3 / 2",
+    description: "Sign-up asks for a role up front, then each role lands on its own dashboard with the numbers and projects that matter to them.",
+    screens: [
+      { src: img("signup"), label: "Sign up", ratio: "1440 / 1180" },
+      { src: img("dashboard"), label: "Client dashboard" },
+    ],
+  },
+];
 
 export default function FreelanceFlowPage() {
   return (
@@ -125,64 +258,47 @@ export default function FreelanceFlowPage() {
               { id: "T4", name: "Review proposals & hire", success: 100, time: "1m 50s avg" },
               { id: "T5", name: "Pay an invoice", success: 80, time: "1m 05s avg" },
             ],
-            findings: [
-              {
-                finding: "Budget type (fixed vs hourly) unclear in Post a Job",
-                evidence: "3 of 5 hesitated; 2 abandoned at step 4",
-                severity: "High",
-                change: "Segmented control with helper copy and example totals",
-              },
-              {
-                finding: "Role choice at sign-up easy to miss",
-                evidence: "2 of 5 signed up with the default role",
-                severity: "High",
-                change: "Role cards required with no default; selected state uses a brand tint and check",
-              },
-              {
-                finding: "Proposal status not visible after submitting",
-                evidence: "“Did it send?” (participant 2)",
-                severity: "Medium",
-                change: "Success alert, then redirect to My Proposals on the Pending tab",
-              },
-              {
-                finding: "Escrow and payment safety not explained",
-                evidence: "Clients asked when money is released",
-                severity: "Medium",
-                change: "Info alert on the payment screen: “Funds held in escrow until you approve”",
-              },
-              {
-                finding: "Job filters reset on back navigation",
-                evidence: "Repeated filtering during T2",
-                severity: "Medium",
-                change: "Filters persisted in the URL query parameters",
-              },
-              {
-                finding: "Low-contrast placeholder text in inputs",
-                evidence: "Raised by a low-vision participant",
-                severity: "Medium",
-                change: "Placeholder uses the muted text colour; labels always visible above fields",
-              },
-              {
-                finding: "Icon-only actions in the dashboard",
-                evidence: "Meaning unclear to 2 participants",
-                severity: "Low",
-                change: "Text labels and aria-labels added",
-              },
-              {
-                finding: "Skill tags look clickable on job cards",
-                evidence: "Participants tapped tags expecting a filter",
-                severity: "Low",
-                change: "Tags on the job detail page now filter Browse Jobs",
-              },
-              {
-                finding: "“Hours worked” card ambiguous",
-                evidence: "This week or all time?",
-                severity: "Low",
-                change: "Delta line states the period: “this month”",
-              },
-            ],
             next: "Re-test posting a job (T3) and sign-up (T1) with 3 new participants after these changes, targeting at least 90% task success and a SUS score of 80.",
           }}
+
+          extraSections={[
+            {
+              position: "afterTesting",
+              id: "changes",
+              label: "What changed",
+              title: "From wireframe to final, and why",
+              content: (
+                <>
+                  <div className="space-y-16">
+                    {comparisons.map((c) => (
+                      <BeforeAfter
+                        key={c.alt}
+                        desktop
+                        before={c.before}
+                        after={c.after}
+                        alt={c.alt}
+                        ratio={c.ratio || "3 / 2"}
+                        beforeLabel="Wireframe"
+                        afterLabel="Final"
+                        caption={c.caption}
+                      />
+                    ))}
+                  </div>
+                  <div className="mt-20">
+                    <Label>All 9 test findings · select one</Label>
+                    <FindingsExplorer findings={findings} />
+                  </div>
+                </>
+              ),
+            },
+            {
+              position: "afterTesting",
+              id: "app",
+              label: "The product",
+              title: "Explore the flows",
+              content: <FlowExplorer flows={flows} />,
+            },
+          ]}
 
           finalImages={[
             "/images/freelanceflow_Client-Post-a-Job-Step1.jpg",
