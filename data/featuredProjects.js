@@ -16,7 +16,7 @@ const featuredProjects = [
     category: "UX/UI Design",
     date: "2024-09-01",
     status: "Case Study",
-    image1: "Giftelle-ui1.jpg",
+    image1: "giftelle/hero.webp",
     shortDescription:
       "Reduced decision fatigue through guided gift discovery and personalized recommendations.",
     tags: ["Research", "UI Design", "Personalization"],

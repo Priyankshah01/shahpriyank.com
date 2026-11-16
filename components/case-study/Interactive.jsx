@@ -1,5 +1,5 @@
-import { useId, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { useId, useRef, useState } from "react";
+import { AnimatePresence, motion, useInView } from "motion/react";
 
 // Interactive building blocks for case studies. Styled to match the site:
 // Geist Mono labels, thin rules, violet accent. All controls are real
@@ -11,10 +11,12 @@ const Mono = ({ children, className = "" }) => (
   </span>
 );
 
-export function PhoneFrame({ src, alt, ratio = "375 / 812", className = "" }) {
+export function PhoneFrame({ src, alt, ratio = "375 / 812", desktop = false, className = "" }) {
   return (
     <div
-      className={`overflow-hidden rounded-[1.75rem] border border-white/15 bg-white shadow-2xl shadow-black/40 ${className}`}
+      className={`overflow-hidden border border-white/15 bg-white shadow-2xl shadow-black/40 ${
+        desktop ? "rounded-xl" : "rounded-[1.75rem]"
+      } ${className}`}
       style={{ aspectRatio: ratio }}
     >
       <img src={src} alt={alt} loading="lazy" className="h-full w-full object-cover object-top" />
@@ -26,14 +28,25 @@ export function PhoneFrame({ src, alt, ratio = "375 / 812", className = "" }) {
 /* Before / after slider                                             */
 /* ---------------------------------------------------------------- */
 
-export function BeforeAfter({ before, after, alt, ratio = "375 / 812", caption }) {
+export function BeforeAfter({
+  before,
+  after,
+  alt,
+  ratio = "375 / 812",
+  caption,
+  beforeLabel = "Before",
+  afterLabel = "After",
+  desktop = false,
+}) {
   const [pos, setPos] = useState(50);
   const id = useId();
 
   return (
     <figure>
       <div
-        className="relative mx-auto w-full max-w-[320px] select-none overflow-hidden rounded-[1.75rem] border border-white/15 bg-white shadow-2xl shadow-black/40"
+        className={`relative mx-auto w-full select-none overflow-hidden border border-white/15 bg-white shadow-2xl shadow-black/40 ${
+          desktop ? "rounded-xl" : "max-w-[320px] rounded-[1.75rem]"
+        }`}
         style={{ aspectRatio: ratio }}
       >
         <img src={after} alt={`${alt}: after`} className="absolute inset-0 h-full w-full object-cover object-top" />
@@ -45,10 +58,10 @@ export function BeforeAfter({ before, after, alt, ratio = "375 / 812", caption }
         />
 
         <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-black/75 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-white">
-          Before
+          {beforeLabel}
         </span>
         <span className="pointer-events-none absolute right-3 top-3 rounded-full bg-violet-500 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-white">
-          After
+          {afterLabel}
         </span>
 
         <div
@@ -75,7 +88,9 @@ export function BeforeAfter({ before, after, alt, ratio = "375 / 812", caption }
         />
       </div>
       {caption && (
-        <figcaption className="mx-auto mt-5 max-w-[320px] text-sm leading-relaxed text-white/65">
+        <figcaption
+          className={`mx-auto mt-5 text-sm leading-relaxed text-white/65 ${desktop ? "max-w-3xl" : "max-w-[320px]"}`}
+        >
           {caption}
         </figcaption>
       )}
@@ -261,10 +276,22 @@ export function FlowExplorer({ flows }) {
           className="mt-8"
         >
           <p className="max-w-2xl leading-relaxed text-white/70">{flow.description}</p>
-          <div className="-mx-6 mt-8 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 md:mx-0 md:grid md:grid-cols-4 md:overflow-visible md:px-0">
+          <div
+            className={`-mx-6 mt-8 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 md:mx-0 md:grid md:overflow-visible md:px-0 ${
+              flow.desktop ? "md:grid-cols-2" : "md:grid-cols-4"
+            }`}
+          >
             {flow.screens.map((s) => (
-              <figure key={s.src} className="w-[220px] shrink-0 snap-start md:w-auto">
-                <PhoneFrame src={s.src} alt={s.label} />
+              <figure
+                key={s.src}
+                className={`shrink-0 snap-start md:w-auto ${flow.desktop ? "w-[300px]" : "w-[220px]"}`}
+              >
+                <PhoneFrame
+                  src={s.src}
+                  alt={s.label}
+                  desktop={flow.desktop}
+                  ratio={flow.desktop ? "1440 / 1024" : s.ratio || "375 / 812"}
+                />
                 <figcaption className="mt-3">
                   <Mono className="text-white/55">{s.label}</Mono>
                 </figcaption>
@@ -287,16 +314,16 @@ const severityStyle = {
   Low: "border-white/20 text-white/60",
 };
 
-function FindingDetail({ f }) {
+function FindingDetail({ f, labels }) {
   return (
     <div className="grid gap-6 sm:grid-cols-[1fr_auto]">
       <div className="space-y-5">
         <div>
-          <Mono className="text-white/45">Evidence</Mono>
+          <Mono className="text-white/45">{labels.evidence}</Mono>
           <p className="mt-2 leading-relaxed text-white/80">{f.evidence}</p>
         </div>
         <div>
-          <Mono className="text-violet-400">Design change</Mono>
+          <Mono className="text-violet-400">{labels.change}</Mono>
           <p className="mt-2 text-lg leading-relaxed text-white">{f.change}</p>
         </div>
       </div>
@@ -305,7 +332,10 @@ function FindingDetail({ f }) {
   );
 }
 
-export function FindingsExplorer({ findings }) {
+export function FindingsExplorer({
+  findings,
+  labels = { evidence: "Evidence", change: "Design change" },
+}) {
   const [active, setActive] = useState(0);
   const f = findings[active];
 
@@ -327,7 +357,15 @@ export function FindingsExplorer({ findings }) {
                 <Mono className={isActive ? "text-violet-400" : "text-white/35"}>
                   {String(i + 1).padStart(2, "0")}
                 </Mono>
-                <span className="font-medium">{item.finding}</span>
+                <span className="font-medium">
+                  {item.kicker && (
+                    <span className="mr-2 font-mono text-[11px] uppercase tracking-[0.1em] text-white/40">
+                      {item.kicker}
+                    </span>
+                  )}
+                  {item.finding}
+                </span>
+                {item.severity ? (
                 <span
                   className={`rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] ${
                     severityStyle[item.severity] || severityStyle.Low
@@ -335,6 +373,9 @@ export function FindingsExplorer({ findings }) {
                 >
                   {item.severity}
                 </span>
+                ) : (
+                  <span />
+                )}
               </button>
               {/* Mobile: detail opens inline under the selected finding */}
               <AnimatePresence initial={false}>
@@ -346,7 +387,7 @@ export function FindingsExplorer({ findings }) {
                     className="overflow-hidden lg:hidden"
                   >
                     <div className="pb-6 pl-[2.25rem]">
-                      <FindingDetail f={item} />
+                      <FindingDetail f={item} labels={labels} />
                     </div>
                   </motion.div>
                 )}
@@ -373,11 +414,85 @@ export function FindingsExplorer({ findings }) {
                   {String(active + 1).padStart(2, "0")} / {String(findings.length).padStart(2, "0")}
                 </Mono>
               </div>
-              <FindingDetail f={f} />
+              <FindingDetail f={f} labels={labels} />
             </motion.div>
           </AnimatePresence>
         </div>
       </div>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------- */
+/* Charts                                                            */
+/* ---------------------------------------------------------------- */
+
+// Paired bars on a fixed scale, e.g. Likert ratings for two conditions.
+export function PairedBars({ rows, series, max = 5, note }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.2 });
+  return (
+    <div ref={ref}>
+      <div className="mb-6 flex flex-wrap gap-5 text-sm text-white/70">
+        {series.map((s, i) => (
+          <span key={s} className="flex items-center gap-2">
+            <span aria-hidden className={`h-2.5 w-2.5 rounded-full ${i === 0 ? "bg-violet-400" : "bg-white/30"}`} />
+            {s}
+          </span>
+        ))}
+      </div>
+      <ul className="space-y-7">
+        {rows.map((r) => (
+          <li key={r.label}>
+            <p className="mb-3 text-white/85">{r.label}</p>
+            {r.values.map((v, i) => (
+              <div key={i} className="mb-2 grid grid-cols-[1fr_3rem] items-center gap-3">
+                <div className="h-2.5 overflow-hidden rounded-full bg-white/[0.06]">
+                  <motion.div
+                    className={`h-full rounded-full ${i === 0 ? "bg-violet-400" : "bg-white/30"}`}
+                    initial={{ width: 0 }}
+                    animate={{ width: inView ? `${(v / max) * 100}%` : 0 }}
+                    transition={{ duration: 0.9, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                  />
+                </div>
+                <span className="text-right font-mono text-sm text-white/80">
+                  <span className="sr-only">{series[i]}: </span>
+                  {v.toFixed(1)}
+                </span>
+              </div>
+            ))}
+          </li>
+        ))}
+      </ul>
+      {note && <p className="mt-5 text-xs text-white/45">{note}</p>}
+    </div>
+  );
+}
+
+// Horizontal percentage bars, e.g. survey multi-select answers.
+export function PercentBars({ rows, note }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.2 });
+  return (
+    <div ref={ref}>
+      <ul className="space-y-4">
+        {rows.map((r, i) => (
+          <li key={r.label} className="grid grid-cols-[1fr_3rem] items-center gap-x-3 gap-y-2">
+            <span className="text-sm text-white/80">{r.label}</span>
+            <span className="text-right font-mono text-sm text-white/80">{r.value}%</span>
+            <div className="col-span-2 h-2 overflow-hidden rounded-full bg-white/[0.06]">
+              <motion.div
+                className="h-full rounded-full bg-violet-400"
+                style={{ opacity: 1 - i * 0.1 }}
+                initial={{ width: 0 }}
+                animate={{ width: inView ? `${r.value}%` : 0 }}
+                transition={{ duration: 0.9, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+              />
+            </div>
+          </li>
+        ))}
+      </ul>
+      {note && <p className="mt-5 text-xs text-white/45">{note}</p>}
     </div>
   );
 }
