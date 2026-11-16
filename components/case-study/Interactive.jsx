@@ -290,7 +290,7 @@ export function FlowExplorer({ flows }) {
                   src={s.src}
                   alt={s.label}
                   desktop={flow.desktop}
-                  ratio={flow.desktop ? "1440 / 1024" : s.ratio || "375 / 812"}
+                  ratio={s.ratio || flow.ratio || (flow.desktop ? "1440 / 1024" : "375 / 812")}
                 />
                 <figcaption className="mt-3">
                   <Mono className="text-white/55">{s.label}</Mono>

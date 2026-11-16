@@ -178,7 +178,7 @@ export default function BasicsPage() {
           client={{ title: "BASICS" }}
           targetAudience="Primary: 18 to 35-year-old urban mobile shoppers who buy wardrobe staples several times a year. Secondary: parents buying for the family. Three proto-personas guided the work: Riya (26), a young professional who re-buys favourite basics and needs to trust the size; Daniel (34), a parent who wants one cart for the family and the full cost before checkout; and Maya (20), a student hunting deals, coupons and points."
           problem="People buying everyday clothing on their phones face cluttered fashion apps, unclear sizing, surprise costs at checkout and painful returns, so they abandon carts or buy elsewhere, even for basics they re-buy every season. How might we make buying everyday essentials on mobile fast, confident and rewarding, from first tap to easy returns?"
-          role="UX and UI design for the BASICS app: requirements and feature prioritisation, information architecture, user flows and wireframes, 55 high-fidelity screens, the design system, and moderated usability testing with the resulting design changes."
+          role="I was the sole designer on BASICS, responsible for UX and UI end to end: requirements and feature prioritisation, information architecture, user flows and wireframes, 55 high-fidelity screens, the design system, and moderated usability testing with the resulting design changes."
           goals={{
             business:
               "Increase mobile conversion and repeat purchase for staples, and lower the return rate through better fit information. Tracked through checkout conversion, cart abandonment, return rate, repeat-purchase rate and average order value.",
