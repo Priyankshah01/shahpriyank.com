@@ -144,8 +144,8 @@ export default function Projects() {
           className="mt-10 max-w-2xl text-xl leading-relaxed text-white/70 md:text-2xl"
         >
           Product work from <span className="text-white">Walmart</span> and{" "}
-          <span className="text-white">AlayaCare</span>, plus self-initiated
-          projects where I design and build end to end.
+          <span className="text-white">AlayaCare</span>, plus client, capstone
+          and self-initiated projects I designed and built end to end.
         </motion.p>
 
         <div className="mt-24">
@@ -161,7 +161,7 @@ export default function Projects() {
 
         <div className="mt-24">
           <SectionLabel index="02" count={featuredProjects.length}>
-            Side projects
+            More projects
           </SectionLabel>
           <ul>
             {featuredProjects.map((project, i) => (

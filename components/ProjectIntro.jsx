@@ -229,6 +229,8 @@ const ProjectIntro = ({
   impactTitle = "What changed",
   takeaways = [],
   testing = null,
+  // [{ position: "afterProcess" | "afterTesting" | "afterOutcome", id, label, title, content }]
+  extraSections = [],
   liveDemoUrl,
   viewCodeUrl,
 }) => {
@@ -259,6 +261,14 @@ const ProjectIntro = ({
   // Big display name; projectName overrides client.title when that is a description.
   const name = projectName || client?.title;
   let n = 0;
+  const extras = (position) =>
+    extraSections
+      .filter((x) => x.position === position)
+      .map((x) => (
+        <Section key={x.id} id={x.id} index={++n} label={x.label} title={x.title}>
+          {x.content}
+        </Section>
+      ));
 
   return (
     <article className="bg-[#050505] px-6 pb-16 pt-12 text-white md:px-8 md:pt-16">
@@ -458,6 +468,8 @@ const ProjectIntro = ({
             </Section>
           )}
 
+          {extras("afterProcess")}
+
           {testing && (
             <Section
               id="testing"
@@ -468,6 +480,8 @@ const ProjectIntro = ({
               <Testing testing={testing} />
             </Section>
           )}
+
+          {extras("afterTesting")}
 
           {finalImages.length > 0 && (
             <Section id="outcome" index={++n} label="Outcome" title="Final interface">
@@ -483,6 +497,8 @@ const ProjectIntro = ({
               </div>
             </Section>
           )}
+
+          {extras("afterOutcome")}
 
           {takeaways.length > 0 && (
             <Section id="reflection" index={++n} label="Reflection" title="What this project reinforced">

@@ -21,11 +21,11 @@ export default function Playground() {
               Playground
             </p>
             <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-              Side projects and experiments
+              More projects
             </h2>
             <p className="mt-4 text-white/65">
-              Self-initiated work where I explore new product ideas, systems and
-              interactions, and build them end to end.
+              Client, capstone and self-initiated work, from mobile commerce and
+              marketplaces to playful interaction experiments.
             </p>
           </div>
           <Link
