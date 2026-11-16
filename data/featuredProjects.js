@@ -23,14 +23,14 @@ const featuredProjects = [
   }, 
     {
     slug: "basicsui",
-    title: "Basics UI",
-    category: "Design System",
+    title: "BASICS",
+    category: "Mobile App · E-commerce",
     date: "2024-06-01",
-    status: "System Design",
+    status: "Client Project",
     image1: "Basics-ui2.jpg",
     shortDescription:
-      "Built a lightweight UI system to improve prototyping speed, consistency, and developer handoff.",
-    tags: ["Design Systems", "Accessibility", "DX"],
+      "A mobile shopping app for an essentials clothing brand: 55 screens, a token-based design system and usability testing that fixed checkout.",
+    tags: ["Mobile UX", "Design System", "Usability Testing"],
   },
   {
   slug: "lego",
