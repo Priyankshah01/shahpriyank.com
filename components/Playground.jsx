@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 import featuredProjects from "../data/featuredProjects";
+import ProjectPreviewCard from "./ProjectPreviewCard";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -25,7 +26,8 @@ export default function Playground() {
             </h2>
             <p className="mt-4 text-white/65">
               Client, capstone and self-initiated work, from mobile commerce and
-              marketplaces to playful interaction experiments.
+              marketplaces to playful interaction experiments. Hover or swipe a
+              card to preview the screens.
             </p>
           </div>
           <Link
@@ -45,26 +47,7 @@ export default function Playground() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: i * 0.06, ease }}
             >
-              <Link
-                href={`/projects/${project.slug}`}
-                className="group block overflow-hidden rounded-[1.25rem] border border-white/10 bg-white/[0.03] transition hover:-translate-y-1 hover:border-white/20"
-              >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={`/images/${project.image1}`}
-                    alt={project.title}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                  />
-                </div>
-                <div className="p-5">
-                  <p className="text-xs text-white/50">{project.category}</p>
-                  <h3 className="mt-1.5 text-lg font-semibold">{project.title}</h3>
-                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/65">
-                    {project.shortDescription}
-                  </p>
-                </div>
-              </Link>
+              <ProjectPreviewCard project={project} />
             </motion.div>
           ))}
         </div>

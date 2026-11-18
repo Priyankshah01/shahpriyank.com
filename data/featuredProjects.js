@@ -9,6 +9,14 @@ const featuredProjects = [
     shortDescription:
       "A two-sided freelance marketplace covering the full hire-to-pay loop, from posting a job to secure payment, designed and built end to end.",
     tags: ["Marketplace", "UX Research", "React"],
+    stat: "84% task success · SUS 76",
+    previewBg: "#F4F5FA",
+    previews: [
+      { src: "freelanceflowhero.jpg" },
+      { src: "freelanceflow/post-job.webp" },
+      { src: "freelanceflow/browse.webp" },
+      { src: "freelanceflow/dashboard.webp" },
+    ],
   },
   {
     slug: "giftelle",
@@ -20,6 +28,14 @@ const featuredProjects = [
     shortDescription:
       "Reduced decision fatigue through guided gift discovery and personalized recommendations.",
     tags: ["Research", "UI Design", "Personalization"],
+    stat: "Confidence 2.8 → 4.3 out of 5",
+    previewBg: "#EADBD3",
+    previews: [
+      { src: "giftelle/hero.webp" },
+      { src: "giftelle/quiz-interests.webp", fit: "contain" },
+      { src: "giftelle/results.webp", fit: "contain" },
+      { src: "giftelle/vendor-order.webp" },
+    ],
   }, 
     {
     slug: "basicsui",
@@ -31,6 +47,14 @@ const featuredProjects = [
     shortDescription:
       "A mobile shopping app for an essentials clothing brand: 55 screens, a token-based design system and usability testing that fixed checkout.",
     tags: ["Mobile UX", "Design System", "Usability Testing"],
+    stat: "87% task success · SUS 74",
+    previewBg: "#EDEDED",
+    previews: [
+      { src: "Basics-ui2.jpg" },
+      { src: "basics/home.webp", fit: "contain" },
+      { src: "basics/after-checkout.webp", fit: "contain" },
+      { src: "basics/after-pdp.webp", fit: "contain" },
+    ],
   },
   {
   slug: "lego",
@@ -42,6 +66,12 @@ const featuredProjects = [
   shortDescription:
     "Turned a simple joke concept into a polished interaction-led web experience using motion, microcopy, and playful frontend feedback.",
   tags: ["Interaction Design", "Frontend", "Microcopy", "Motion"],
+  previews: [
+    { src: "lego-step-finder-hero.jpg" },
+    { src: "lego-step-finder-wifreframe.jpg" },
+    { src: "lego-step-finder-design.jpg" },
+    { src: "lego-step-finder-style.jpg" },
+  ],
 },
   // {
   //   title: "Portfolio Admin CMS",

@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import DesignCodeDemo from "./DesignCodeDemo";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -67,6 +68,28 @@ export default function HowIWork() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, ease }}
+          className="mt-16"
+        >
+          <div className="mb-6 max-w-2xl">
+            <p className="font-mono text-xs uppercase tracking-[0.14em] text-violet-400">
+              Try it
+            </p>
+            <h3 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">
+              One component, from spec to shipped.
+            </h3>
+            <p className="mt-3 leading-relaxed text-white/65">
+              Switch between the design spec, the code I write from it, and the
+              working component. Same numbers in all three.
+            </p>
+          </div>
+          <DesignCodeDemo />
+        </motion.div>
       </div>
     </section>
   );

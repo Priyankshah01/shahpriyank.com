@@ -3,7 +3,7 @@ import "../styles/ProfileCard.css";
 import { Toaster } from "react-hot-toast";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { geistSans, geistMono } from "../lib/fonts";
 
 export default function App({ Component, pageProps, router }) {
@@ -24,6 +24,7 @@ export default function App({ Component, pageProps, router }) {
       <Toaster position="top-right" reverseOrder={false} />
       <Navbar />
 
+      <MotionConfig reducedMotion="user">
       <AnimatePresence mode="wait">
         <motion.main
           key={router.asPath}
@@ -36,6 +37,7 @@ export default function App({ Component, pageProps, router }) {
           <Component {...pageProps} />
         </motion.main>
       </AnimatePresence>
+      </MotionConfig>
     </div>
   );
 }
