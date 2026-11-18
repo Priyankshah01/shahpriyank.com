@@ -72,8 +72,11 @@ export default function Hero() {
       </div>
 
       <div className="border-y border-white/10 py-5">
+        {/* Both are rendered; CSS picks one based on the reduced-motion setting,
+            so server and client HTML always match. */}
         <motion.div
-          className="flex w-max gap-12 whitespace-nowrap font-mono text-xs uppercase tracking-[0.15em] text-white/45"
+          aria-hidden
+          className="flex w-max gap-12 whitespace-nowrap font-mono text-xs uppercase tracking-[0.15em] text-white/45 motion-reduce:hidden"
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 40, ease: "linear", repeat: Infinity }}
         >
@@ -83,6 +86,14 @@ export default function Hero() {
             </span>
           ))}
         </motion.div>
+        <ul
+          aria-label="Focus areas"
+          className="mx-auto max-w-7xl flex-wrap gap-x-8 gap-y-2 px-6 font-mono text-xs uppercase tracking-[0.15em] text-white/45 md:px-8 motion-safe:sr-only motion-reduce:flex"
+        >
+          {strip.map((t) => (
+            <li key={t}>{t}</li>
+          ))}
+        </ul>
       </div>
     </section>
   );
