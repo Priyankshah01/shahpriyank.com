@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /projects/portfolio-cms
+
+Sitemap: https://www.shahpriyank.com/sitemap.xml

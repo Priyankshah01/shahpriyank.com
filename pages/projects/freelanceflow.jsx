@@ -1,4 +1,5 @@
 import Footer from "../../components/Footer";
+import Seo from "../../components/Seo";
 import ProjectIntro from "../../components/ProjectIntro";
 import {
   BeforeAfter,
@@ -143,6 +144,12 @@ const flows = [
 export default function FreelanceFlowPage() {
   return (
     <>
+      <Seo
+        title="FreelanceFlow Case Study: Freelance Marketplace UX | Priyank Shah"
+        description="How Priyank Shah designed and built FreelanceFlow, a two-sided freelance marketplace covering the hire-to-pay loop. Personas, MoSCoW, user flows and usability testing: 84% task success, SUS 76."
+        image="/og/freelanceflow.jpg"
+        type="article"
+      />
       <main>
         <ProjectIntro
           heroImg="/images/freelanceflowhero2.jpg"

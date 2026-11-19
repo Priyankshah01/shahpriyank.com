@@ -1,9 +1,16 @@
 import Footer from "../../components/Footer";
+import Seo from "../../components/Seo";
 import ProjectIntro from "../../components/ProjectIntro";
 
 export default function LegoStepFinderPage() {
   return (
     <>
+      <Seo
+        title="LEGO Step Finder: Interaction Design Experiment | Priyank Shah"
+        description="LEGO Step Finder by Priyank Shah: a playful, interaction-led web experiment using motion, microcopy and frontend feedback to turn a relatable joke into a polished experience."
+        image="/og/lego.jpg"
+        type="article"
+      />
       <main>
         <ProjectIntro
           heroImg="/images/lego-step-finder-hero.jpg"

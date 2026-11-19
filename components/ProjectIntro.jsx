@@ -86,7 +86,7 @@ function Testing({ testing }) {
           {setup.map(([label, value], i) => (
             <motion.div key={label} {...rise(i * 0.04)}>
               <dt>
-                <Mono className="text-white/45">{label}</Mono>
+                <Mono className="text-white/60">{label}</Mono>
               </dt>
               <dd className="mt-3 leading-relaxed text-white/75">{value}</dd>
             </motion.div>
@@ -111,7 +111,7 @@ function Testing({ testing }) {
 
       {tasks.length > 0 && (
         <motion.div {...rise()} className="mt-12">
-          <Mono className="text-white/45">Task success rate</Mono>
+          <Mono className="text-white/60">Task success rate</Mono>
           <ul className="mt-5 space-y-4">
             {tasks.map((t) => {
               const below = t.success < target;
@@ -120,7 +120,7 @@ function Testing({ testing }) {
                   <span className="text-white/80">
                     <span className="font-mono text-xs text-violet-400">{t.id}</span>{" "}
                     {t.name}
-                    {t.time && <span className="text-white/45"> · {t.time}</span>}
+                    {t.time && <span className="text-white/60"> · {t.time}</span>}
                   </span>
                   <span className={`font-mono text-xs ${below ? "text-amber-300" : "text-white/70"}`}>
                     {t.success}%
@@ -140,7 +140,7 @@ function Testing({ testing }) {
               );
             })}
           </ul>
-          <p className="mt-4 text-xs text-white/45">
+          <p className="mt-4 text-xs text-white/60">
             White tick marks the {target}% target. Amber marks tasks below it.
           </p>
         </motion.div>
@@ -148,7 +148,7 @@ function Testing({ testing }) {
 
       {findings.length > 0 && (
         <div className="mt-14">
-          <Mono className="text-white/45">Findings and design changes</Mono>
+          <Mono className="text-white/60">Findings and design changes</Mono>
           <ol className="mt-5 border-t border-white/10">
             {findings.map((f, i) => (
               <motion.li
@@ -339,7 +339,7 @@ const ProjectIntro = ({
             .map(([label, value]) => (
               <div key={label}>
                 <dt>
-                  <Mono className="text-white/45">{label}</Mono>
+                  <Mono className="text-white/60">{label}</Mono>
                 </dt>
                 <dd className="mt-2 text-sm leading-relaxed text-white/85">{value}</dd>
               </div>
@@ -353,7 +353,13 @@ const ProjectIntro = ({
             transition={{ duration: 0.9, delay: 0.5, ease }}
             className="mt-14 overflow-hidden rounded-2xl border border-white/10"
           >
-            <img src={heroImg} alt={outcomeTitle || "Project preview"} className="w-full object-cover" />
+            <img
+              src={heroImg}
+              alt={outcomeTitle || "Project preview"}
+              fetchPriority="high"
+              decoding="async"
+              className="w-full object-cover"
+            />
           </motion.div>
         )}
 
@@ -369,13 +375,13 @@ const ProjectIntro = ({
             <div className="grid gap-10 md:grid-cols-2">
               {targetAudience && (
                 <motion.div {...rise()}>
-                  <Mono className="text-white/45">Audience</Mono>
+                  <Mono className="text-white/60">Audience</Mono>
                   <p className="mt-3 leading-relaxed text-white/75">{targetAudience}</p>
                 </motion.div>
               )}
               {role && (
                 <motion.div {...rise(0.05)}>
-                  <Mono className="text-white/45">My role</Mono>
+                  <Mono className="text-white/60">My role</Mono>
                   <p className="mt-3 leading-relaxed text-white/75">{role}</p>
                 </motion.div>
               )}
@@ -408,7 +414,7 @@ const ProjectIntro = ({
                       {...rise(i * 0.05)}
                       className="border-b border-white/10 py-6 md:border-b-0 md:border-r md:px-6 md:first:pl-0 md:last:border-r-0"
                     >
-                      <Mono className="text-white/45">{label}</Mono>
+                      <Mono className="text-white/60">{label}</Mono>
                       <p className="mt-3 leading-relaxed text-white/75">{value}</p>
                     </motion.div>
                   ))}
@@ -418,7 +424,7 @@ const ProjectIntro = ({
                 <div className="mt-12 grid gap-10 md:grid-cols-2">
                   {stack.length > 0 && (
                     <motion.div {...rise()}>
-                      <Mono className="text-white/45">Tech stack</Mono>
+                      <Mono className="text-white/60">Tech stack</Mono>
                       <ul className="mt-4 flex flex-wrap gap-2">
                         {stack.map((t) => (
                           <li
@@ -433,7 +439,7 @@ const ProjectIntro = ({
                   )}
                   {accessibility.length > 0 && (
                     <motion.div {...rise(0.05)}>
-                      <Mono className="text-white/45">Accessibility</Mono>
+                      <Mono className="text-white/60">Accessibility</Mono>
                       <ul className="mt-4 space-y-3">
                         {accessibility.map((point, i) => (
                           <li key={i} className="flex gap-3 leading-relaxed text-white/75">
@@ -545,7 +551,7 @@ const ProjectIntro = ({
             className="group mt-4 flex flex-col gap-4 border-t border-white/10 pt-10 sm:flex-row sm:items-end sm:justify-between"
           >
             <div>
-              <Mono className="text-white/45">Next project</Mono>
+              <Mono className="text-white/60">Next project</Mono>
               <p className="mt-3 text-5xl font-semibold tracking-tight transition group-hover:text-violet-300 md:text-7xl">
                 {next.title}
                 <span className="text-violet-400">.</span>

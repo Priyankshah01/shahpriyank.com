@@ -119,7 +119,7 @@ export function contrast(a, b) {
 function Segmented({ label, options, value, onChange }) {
   return (
     <div>
-      <Mono className="text-white/45">{label}</Mono>
+      <Mono className="text-white/60">{label}</Mono>
       <div role="radiogroup" aria-label={label} className="mt-3 inline-flex rounded-full border border-white/15 p-1">
         {options.map((o) => (
           <button
@@ -175,14 +175,14 @@ export function TokenDemo({ themes, secondary, image }) {
 
         <dl className="grid grid-cols-2 gap-6 border-t border-white/10 pt-6">
           <div>
-            <dt><Mono className="text-white/45">Value</Mono></dt>
+            <dt><Mono className="text-white/60">Value</Mono></dt>
             <dd className="mt-2 flex items-center gap-2 font-mono text-sm text-white">
               <span aria-hidden className="h-4 w-4 rounded border border-white/20" style={{ background: sec.value }} />
               {sec.name}
             </dd>
           </div>
           <div>
-            <dt><Mono className="text-white/45">Contrast on surface</Mono></dt>
+            <dt><Mono className="text-white/60">Contrast on surface</Mono></dt>
             <dd className="mt-2 flex items-center gap-3">
               <span className="text-3xl font-semibold tracking-tight">{ratio.toFixed(1)}:1</span>
               <span
@@ -319,7 +319,7 @@ function FindingDetail({ f, labels }) {
     <div className="grid gap-6 sm:grid-cols-[1fr_auto]">
       <div className="space-y-5">
         <div>
-          <Mono className="text-white/45">{labels.evidence}</Mono>
+          <Mono className="text-white/60">{labels.evidence}</Mono>
           <p className="mt-2 leading-relaxed text-white/80">{f.evidence}</p>
         </div>
         <div>
@@ -464,7 +464,7 @@ export function PairedBars({ rows, series, max = 5, note }) {
           </li>
         ))}
       </ul>
-      {note && <p className="mt-5 text-xs text-white/45">{note}</p>}
+      {note && <p className="mt-5 text-xs text-white/60">{note}</p>}
     </div>
   );
 }
@@ -492,7 +492,7 @@ export function PercentBars({ rows, note }) {
           </li>
         ))}
       </ul>
-      {note && <p className="mt-5 text-xs text-white/45">{note}</p>}
+      {note && <p className="mt-5 text-xs text-white/60">{note}</p>}
     </div>
   );
 }
