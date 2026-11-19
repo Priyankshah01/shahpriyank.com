@@ -1,4 +1,5 @@
 import Footer from "../../components/Footer";
+import Seo from "../../components/Seo";
 import ProjectIntro from "../../components/ProjectIntro";
 import {
   BeforeAfter,
@@ -238,6 +239,12 @@ const flows = [
 export default function GiftellePage() {
   return (
     <>
+      <Seo
+        title="Giftelle Case Study: Guided Gift Discovery | Priyank Shah"
+        description="How Priyank Shah designed Giftelle, a personalized gifting app with vendor and admin tools. Research with 50+ surveys and 10 interviews; purchase confidence rose from 2.8 to 4.3 out of 5."
+        image="/og/giftelle.jpg"
+        type="article"
+      />
       <main>
         <ProjectIntro
           heroImg={img("hero")}

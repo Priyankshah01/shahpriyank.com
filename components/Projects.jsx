@@ -16,12 +16,12 @@ const rise = (delay = 0) => ({
 
 function SectionLabel({ index, children, count }) {
   return (
-    <div className="flex items-baseline justify-between border-b border-white/10 pb-4 font-mono text-xs uppercase tracking-[0.14em] text-white/55">
+    <h2 className="flex items-baseline justify-between border-b border-white/10 pb-4 font-mono text-xs uppercase tracking-[0.14em] text-white/55">
       <span>
         <span className="text-violet-400">{index}</span> {children}
       </span>
       <span>{String(count).padStart(2, "0")}</span>
-    </div>
+    </h2>
   );
 }
 
@@ -32,7 +32,7 @@ function ProfessionalRow({ item }) {
         <p className="text-3xl font-semibold tracking-tight md:text-4xl">
           {item.company}
         </p>
-        <p className="mt-2 font-mono text-xs uppercase tracking-[0.14em] text-white/45">
+        <p className="mt-2 font-mono text-xs uppercase tracking-[0.14em] text-white/60">
           {item.period}
         </p>
       </div>
@@ -42,7 +42,7 @@ function ProfessionalRow({ item }) {
         </p>
         <p className="mt-2 text-sm text-white/55">{item.role}</p>
       </div>
-      <p className="font-mono text-xs uppercase tracking-[0.14em] text-white/45 md:text-right">
+      <p className="font-mono text-xs uppercase tracking-[0.14em] text-white/60 md:text-right">
         {item.href ? "Read case study →" : "Case study in progress"}
       </p>
     </div>
@@ -79,7 +79,7 @@ function ProjectRow({ project, index }) {
         </div>
 
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-white/45">
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-white/60">
             <span className="text-violet-400">
               {String(index + 1).padStart(2, "0")}
             </span>{" "}

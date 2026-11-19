@@ -1,10 +1,17 @@
 // pages/projects/portfolio-cms.jsx
 import Footer from "../../components/Footer";
+import Seo from "../../components/Seo";
 import ProjectIntro from "../../components/ProjectIntro";
 
 export default function PortfolioCMSPage() {
   return (
     <>
+      <Seo
+        title="Portfolio CMS | Priyank Shah"
+        description="A custom content management system Priyank Shah built to manage portfolio projects."
+        image="/og/home.jpg"
+        type="article" noindex
+      />
       <main>
         <ProjectIntro
           projectName="Portfolio CMS"

@@ -1,4 +1,5 @@
 import Footer from "../../components/Footer";
+import Seo from "../../components/Seo";
 import ProjectIntro from "../../components/ProjectIntro";
 import {
   BeforeAfter,
@@ -160,6 +161,12 @@ const secondary = {
 export default function BasicsPage() {
   return (
     <>
+      <Seo
+        title="BASICS Case Study: Mobile Shopping App & Design System | Priyank Shah"
+        description="How Priyank Shah designed BASICS, a mobile shopping app for an essentials clothing brand: 55 screens, a token-based design system, and usability testing with 87% task success."
+        image="/og/basics.jpg"
+        type="article"
+      />
       <main>
         <ProjectIntro
           projectName="BASICS"

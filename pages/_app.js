@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import "../styles/ProfileCard.css";
 import { Toaster } from "react-hot-toast";
 import Head from "next/head";
+import Seo from "../components/Seo";
 import Navbar from "../components/Navbar";
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { geistSans, geistMono } from "../lib/fonts";
@@ -12,14 +13,11 @@ export default function App({ Component, pageProps, router }) {
       className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
     >
       <Head>
-        <title>Priyank Shah | Product Designer & Design Engineer</title>
-        <meta
-          name="description"
-          content="Priyank Shah — product designer who designs and ships. Commerce at Walmart, healthcare at AlayaCare, Toronto-based."
-        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/images/Me.jpg" />
       </Head>
+      {/* Site-wide defaults; each page overrides these with its own <Seo>. */}
+      <Seo />
 
       <Toaster position="top-right" reverseOrder={false} />
       <Navbar />
