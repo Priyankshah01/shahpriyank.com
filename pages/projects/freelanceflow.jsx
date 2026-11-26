@@ -321,7 +321,7 @@ export default function FreelanceFlowPage() {
             "Owning both the design and the build meant the component system in Figma and in React stayed the same system.",
           ]}
 
-          liveDemoUrl="#"
+          liveDemoUrl="https://freelanceflow-gamma.vercel.app/"
           viewCodeUrl="#"
         />
       </main>
